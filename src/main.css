@@ -195,21 +195,8 @@ img {
    width: 40px;
 }
 
-#user {
-   position: absolute;
-   margin-left: 8px;
-   font-size: 15px;
-   transform: translate(0%, 120%);
-}
-#user_name {
-   background-color: var(--white_hover);
-   border-radius: 5px;
-   font-size: 16px;
-   height: 54px;
-   vertical-align: middle;
-   padding: 0px 0px 10px 7px;
-   width: 234px;
-}
+
+
 
 .column {
    margin: 130px 10px 0px 10px;

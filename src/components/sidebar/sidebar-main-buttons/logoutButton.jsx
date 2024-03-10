@@ -52,7 +52,7 @@ function LogoutButton({logoClicked, token}) {
     return (
         <div className="logout-button">
             
-            <button className="menu_item" id="logout" onClick={handleLogout}>
+            <button className="menu_item" id="btn_edit" onClick={handleLogout}>
                 <div className="icon">
                     <FontAwesomeIcon icon={faSignOutAlt} size="2x" /> 
                 </div>

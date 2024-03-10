@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 function SidebarLogin({ logoClicked }) {
     return (
            <aside>
+                
                 <div className={`menu_item ${logoClicked ? 'reduced-width' : ''}`}>
                 <Link to="/">
                    <button className="menu_item" id="btn_edit" >

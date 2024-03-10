@@ -1,16 +1,37 @@
 .menu_item {
     margin: 5px 0px;
     text-align: left;
-    padding: 10px 0px 5px 10px;
+    padding: 5px 0px 5px 10px;
     background-color: transparent;
     border: transparent;
     width: 96%;
-    font-size: 14px;
+    font-size: 13px;
     z-index: 20px;
     display: block;
     justify-content: center;
     align-items: center;
  }
+
+ #user_name {
+    background-color: var(--white_hover);
+    border-radius: 5px;
+    font-size: 16px;
+    height: 54px;
+    vertical-align: middle;
+    padding: 0px 0px 10px 5px;
+    
+ }
+
+ #user-first-name {
+    
+    margin-left: 15px;
+    height: 15px;
+    font-size: 15px;
+    transform: translate(0%, 120%);
+    display: inline-block;
+    vertical-align: top;
+ }
+
 
  .icon {
     position: absolute;
@@ -20,15 +41,33 @@
 
 }
 
+.collpased-icon-button {
+    position: absolute;
+    left: 20px;
+    padding: 5px 0px 0px 15px;
+    min-width: 30px;
+}
+
 .text {
     text-align: center;
     width: 100%;
     padding: 10px 0px 5px 10px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
 }
 
-#btn_edit {
+.collapsed-buttons-text {
+    text-align: center;
+    width: 100%;
+    padding: 5px 0px 5px 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#btn_edit,
+#btn_users,
+#active_users_btn,
+#inactive_users_btn {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -38,6 +77,10 @@
 
 .reduced-width {
     width: 25%; /* Adjust this value as needed */
+}
+
+.reduced-width-user-name {
+    width: 95%; /* Adjust this value as needed */
 }
 
 .menu_item a {

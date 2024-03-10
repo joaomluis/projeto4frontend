@@ -2,7 +2,7 @@ button {
     cursor: pointer;
     color: var(--black);
     border-radius: 5px;
-    width: 97.5%    ;
+    width: 97.5%;
 }
 
 button:hover {

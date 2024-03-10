@@ -1,0 +1,35 @@
+#page-logo {
+    position: fixed;
+    color: var(--black);
+    padding-left: 20px;
+    font-weight: 500;
+    padding: 15px 0px 0px 20px;
+    width: 170px;
+    text-align: left;
+ }
+
+
+ .rotate {
+    transition: transform 0.5s;
+    transform: rotate(46deg);
+  }
+
+#scrum_img {
+    transition: transform 0.5s;
+}
+
+.margin80 {
+    margin-left: 80px;
+}
+  
+.margin260 {
+    margin-left: 260px;
+}
+
+.width90 {
+    width: 90%;
+}
+  
+.width95 {
+    width: 95%;
+}

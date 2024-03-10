@@ -1,0 +1,18 @@
+button {
+    cursor: pointer;
+    color: var(--black);
+    border-radius: 5px;
+    width: 97.5%    ;
+}
+
+button:hover {
+    background-color: var(--white_hover);
+}
+
+.icon {
+    position: absolute;
+    left: 10px;
+    padding: 10px 0px 5px 15px;
+    min-width: 50px
+}
+

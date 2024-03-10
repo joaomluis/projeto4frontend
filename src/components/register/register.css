@@ -1,0 +1,35 @@
+form {
+    position: fixed;
+    border-radius: 8px;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    background-color: var(--white);
+    padding: 20px;
+}
+
+#form_register {
+    height: 470px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    top: 45%;
+    box-shadow: -50px 0px 30px 30px rgba(0, 0, 0, 0.4);
+}
+ 
+ #form_register h2 {
+    margin-bottom: 30px;
+ }
+
+.register_elem {
+    margin-bottom: 12px;
+    box-shadow: var(--text_shadow);
+}
+ 
+#register_submit {
+    box-shadow: 0px 0px 0px 0px black;
+}
+
+#register_photo_main {
+    margin-bottom: 30px;
+}

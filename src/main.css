@@ -121,13 +121,7 @@ textarea {
 
 /*////////////////////Janela Login////////////////////////*/
 
-#user_img {
-   transform: translate(0%, -40%);
-   top: 50%;
-   border-radius: 50%;
-   height: 50px;
-   width: 50px;
-}
+
 
 #scrum_img {
    vertical-align: middle;
@@ -174,9 +168,7 @@ textarea {
 
 /*/ /////////////////////////Janela principal Scrum///////////////////////////////////////*/
 
-#scrum_section {
-   display: flex;
-}
+
 
 aside {
    position: fixed;
@@ -189,43 +181,12 @@ aside {
    background-color: transparent;
 }
 
-img {
-   position: relative;
-   height: 40px;
-   width: 40px;
-}
 
 
 
 
-.column {
-   margin: 130px 10px 0px 10px;
-   flex-shrink: 0;
-   width: 330px;
-   height: 552px;
-   background-color: var(--white);
-   border-radius: 12px;
-   border-width: 2px;
-   padding-top: 12px;
-  
 
-}
 
-#column1 {
-   margin-left: 375px;
-}
-
-.title {
-   text-align: center;
-   font-size: 16px;
-   border-bottom: solid;
-   color: var(--black);
-   font-weight: bold;
-   margin: 0px 30px 20px 30px;
-   padding: 0px 50px;
-   overflow-wrap: break-word;
-   max-width: 250px;
-}
 
 .task {
    display: flex;
@@ -331,27 +292,7 @@ img {
    cursor: pointer;
 }
 
-.task_list {
-   display: flex;
-   flex-direction: column;
-   height: 469px;
-   overflow: auto;
-}
 
-.task_list::-webkit-scrollbar {
-   width: 9px;
-}
-
-.task_list::-webkit-scrollbar-thumb {
-   background-color: rgb(159, 159, 159);
-   border-radius: 10px;
-}
-
-.task_list::-webkit-scrollbar-track {
-   border-radius: 10px;
-   background-color: rgb(186, 186, 186);
-   margin-top: 5px;
-}
 
 #btn_task,
 #btn_create-category {

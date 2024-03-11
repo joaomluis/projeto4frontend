@@ -75,6 +75,19 @@
     min-height: 40px;
 }
 
+img {
+    position: relative;
+    height: 40px;
+    width: 40px;
+ }
+ #user_img {
+    transform: translate(0%, -40%);
+    top: 50%;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+ } 
+
 .reduced-width {
     width: 25%; /* Adjust this value as needed */
 }

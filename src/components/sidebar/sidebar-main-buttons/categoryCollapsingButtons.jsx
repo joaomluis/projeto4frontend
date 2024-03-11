@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import './sidebar-main-buttons.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsersSlash, faBarsProgress, faListUl, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 
 
-function UserCollapsingButton({logoClicked}) {
+function UserCollapsingButton({logoClicked, toggleCreateCategory}) {
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,12 +29,14 @@ function UserCollapsingButton({logoClicked}) {
               </div>
               {!logoClicked && <div className="collapsed-buttons-text">Category List</div>}
             </button>
-          <button className="menu_item" id='inactive_users_btn'>
+            
+          <button className="menu_item" id='inactive_users_btn' onClick={toggleCreateCategory}>
             <div className="collpased-icon-button">
               <FontAwesomeIcon icon={faPlus} size="1x" />
               </div>
               {!logoClicked && <div className="collapsed-buttons-text">Create Category</div>}
             </button>
+           
         </div>
       )}
         </div>

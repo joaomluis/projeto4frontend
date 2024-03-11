@@ -10,12 +10,10 @@ import HomeButton from './sidebar-main-buttons/homeButton.jsx';
 
 
 
-function SidebarMain( {logoClicked}) {
+function SidebarMain( {logoClicked, toggleCreateCategory}) {
 
    const userType = useUserStore((state) => state.userType); 
    const token = useUserStore((state) => state.token); 
-   const userImg = useUserStore((state) => state.imgURL); 
-   const firstName = useUserStore((state) => state.firstName);
    
 
    const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +26,7 @@ function SidebarMain( {logoClicked}) {
             <UserProfileButton token={token} logoClicked={logoClicked} />
             <HomeButton token={token} logoClicked={logoClicked} />
             { (userType === 'product_owner' || userType === 'scrum_master') && <UserCollapsingButton token={token} logoClicked={logoClicked} userType={userType}/> }
-            { userType === 'product_owner' && <CategoryCollapsingButton token={token} logoClicked={logoClicked} /> }
+            { userType === 'product_owner' && <CategoryCollapsingButton token={token} logoClicked={logoClicked} toggleCreateCategory={toggleCreateCategory} /> }
             { (userType === 'product_owner' || userType === 'scrum_master') && <InactiveTasks token={token} logoClicked={logoClicked}/>}
             <LogoutButton token={token} logoClicked={logoClicked}/>
          </div>

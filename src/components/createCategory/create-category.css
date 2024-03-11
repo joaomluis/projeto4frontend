@@ -1,0 +1,119 @@
+.modal-category {
+    display: none;
+    z-index: 1000;
+    position: relative;
+ }
+
+ #overlay-modal-category {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: block; 
+    z-index: 999;
+    
+ }
+
+ .descricaoCategoria {
+    margin: 40px auto;
+    background-color: var(--white);
+    border-radius: 12px;
+    width: 24em;
+    padding: 10px 1em 1.8em 1em;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+    transform: translate(-50%, -50%);
+    top: 41%;
+    left: 850px;
+    position: absolute;
+    z-index: 1000;
+ }
+
+ .modal_exit {
+    color: black;
+    border-radius: 50%;
+    font-size: 17.5px;
+    font-weight: bold;
+    border: none;
+    background-color: transparent;
+    padding: 0px 0px 10px 0px;
+    height: 17px;
+    width: 25px;
+    margin: 5px 12px 0px 370px;
+    text-align: center;
+    cursor: pointer;
+ }
+ 
+ .taskMain {
+    padding: 20px;
+    margin-bottom: 55px;
+    padding-left: 0px;
+ }
+ .modal_exit:hover {
+    background-color: var(--white_hover);
+ }
+ 
+ .modal_exit:active {
+    background-color: var(--white_active);
+ }
+
+ #cancel {
+    margin-left: 360px;
+    padding: 0px 6px;
+    padding-bottom: 2px;
+ }
+
+ #task_creationTitle {
+    color: var(--black);
+    margin-bottom: 6px;
+    margin-left: 10px;
+ }
+
+ #title,
+ #description {
+   padding: 8px;
+   margin-bottom: 12px;
+   box-sizing: border-box;
+   background-color: var(--white_active);
+   border-radius: 5px;
+   outline: none;
+   border: none;
+   box-shadow: 0px 0px 2px 0px black;
+}
+
+#description {
+    width: 95%;
+    margin-left: 10px;
+    margin-bottom: 0px;
+    border-radius: 5px;
+    height: 220px;
+ }
+
+ #description::placeholder {
+    color: var(--black);
+ }
+
+ .buttons {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+ }
+
+ 
+ .btns_task {
+    width: 46%;
+    margin-right: 5px;
+    margin-left: 8px;
+ }
+
+ #category_save, #category_delete {
+    margin-top: 20px; 
+ }
+
+ #error_creating_category {
+   color: red;
+   text-align: center;
+   bottom: -14px;
+  position: relative;
+}

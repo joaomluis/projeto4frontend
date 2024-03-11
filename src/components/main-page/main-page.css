@@ -1,0 +1,74 @@
+.column {
+    margin: 130px 10px 0px 10px;
+    flex-shrink: 0;
+    width: 330px;
+    height: 552px;
+    background-color: var(--white);
+    border-radius: 12px;
+    border-width: 2px;
+    padding-top: 12px;
+ 
+ }
+ 
+ #column1 {
+    margin-left: 375px;
+ }
+
+ .title {
+    text-align: center;
+    font-size: 16px;
+    border-bottom: solid;
+    color: var(--black);
+    font-weight: bold;
+    margin: 0px 30px 20px 30px;
+    padding: 0px 50px;
+    overflow-wrap: break-word;
+    max-width: 250px;
+ }
+
+ .task_list {
+   display: flex;
+   flex-direction: column;
+   height: 469px;
+   overflow: auto;
+}
+
+.task_list::-webkit-scrollbar {
+   width: 9px;
+}
+
+.task_list::-webkit-scrollbar-thumb {
+   background-color: rgb(159, 159, 159);
+   border-radius: 10px;
+}
+
+.task_list::-webkit-scrollbar-track {
+   border-radius: 10px;
+   background-color: rgb(186, 186, 186);
+   margin-top: 5px;
+}
+
+#btn_task,
+#btn_create-category {
+   width: 300px;
+   border: none;
+   text-align: left;
+   font-size: 15px;
+   border-radius: 5px;
+   margin-left: 10px;
+   background-color: var(--white);
+   padding: 3px 0px 8px 5px;
+   font-weight: bold;
+}
+
+
+#btn_task:hover {
+   background-color: var(--white_hover);
+}
+#btn_task:active {
+   background-color: var(--white_active);
+}
+
+#scrum_section {
+   display: flex;
+}

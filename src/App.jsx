@@ -8,6 +8,8 @@ import Header from './components/header/header.jsx';
 import Footer from './components/footer/footer.jsx';
 import Sidebar from './components/sidebar/sidebar.jsx';
 import useUserStore from './store/useUserStore.jsx';
+import MainPageScrum from './components/main-page/main-scrum-page.jsx';
+import CreateCategory from './components/createCategory/create-category.jsx';
 
 
 function App() {
@@ -17,11 +19,16 @@ function App() {
     const [logoClicked, setLogoClicked] = useState(false); 
     const location = useLocation();
     const isLoggedIn = useUserStore(state => state.isLoggedIn);
+    const [isCreateCategoryOpen, setIsCreateCategoryOpen] = useState(false);
 
     const handleRotate = () => {
       setRotate(!rotate);
       setLogoClicked(!logoClicked);
     };
+
+    const toggleCreateCategory = () => {
+        setIsCreateCategoryOpen(!isCreateCategoryOpen);
+      };
 
 
 
@@ -31,14 +38,17 @@ function App() {
             <div id="filter_color"></div>
             <Header rotate={rotate} onRotate={handleRotate} />
             {!rotate && <Footer />}
-            <Sidebar page={isLoggedIn ? 'main' : 'login-sidebar'} logoClicked={logoClicked} />
+            <Sidebar page={isLoggedIn ? 'main' : 'login-sidebar'} logoClicked={logoClicked} toggleCreateCategory={toggleCreateCategory} />
             
             
         <Routes>
             <Route path="/" element={!isLoggedIn ? <Login /> : <Navigate to="/scrum" />} />
             <Route path="/register" element={<Register/>} />
-            <Route path="/scrum" element={<h1>test</h1>}  />
+            <Route path="/scrum" element={<MainPageScrum/>}  />
+            <Route path="/create-category" element={<CreateCategory/>} />
         </Routes>
+
+        {isCreateCategoryOpen && <CreateCategory onClose={toggleCreateCategory} />}
 
         </div>
         

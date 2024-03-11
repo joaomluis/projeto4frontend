@@ -14,6 +14,7 @@ function SidebarMain( {logoClicked, toggleCreateCategory}) {
 
    const userType = useUserStore((state) => state.userType); 
    const token = useUserStore((state) => state.token); 
+   const [reload, setReload] = useState(false);
    
 
    const [isOpen, setIsOpen] = useState(false);

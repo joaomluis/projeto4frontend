@@ -10,6 +10,7 @@ import Sidebar from './components/sidebar/sidebar.jsx';
 import useUserStore from './store/useUserStore.jsx';
 import MainPageScrum from './components/main-page/main-scrum-page.jsx';
 import CreateCategory from './components/createCategory/create-category.jsx';
+import CategoriesTable from './components/categories-page/categories-table.jsx';
 
 
 function App() {
@@ -20,6 +21,11 @@ function App() {
     const location = useLocation();
     const isLoggedIn = useUserStore(state => state.isLoggedIn);
     const [isCreateCategoryOpen, setIsCreateCategoryOpen] = useState(false);
+
+    //categorias, para fazer update quando 
+    const [categories, setCategories] = useState([]);
+    const [reload, setReload] = useState(false);
+
 
     const handleRotate = () => {
       setRotate(!rotate);
@@ -46,9 +52,10 @@ function App() {
             <Route path="/register" element={<Register/>} />
             <Route path="/scrum" element={<MainPageScrum/>}  />
             <Route path="/create-category" element={<CreateCategory/>} />
+            <Route path="/categories" element={<CategoriesTable/>}/>
         </Routes>
 
-        {isCreateCategoryOpen && <CreateCategory onClose={toggleCreateCategory} />}
+        {isCreateCategoryOpen && <CreateCategory onClose={toggleCreateCategory} setReload={setReload}/>}
 
         </div>
         

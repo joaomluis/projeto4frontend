@@ -23,12 +23,14 @@ function UserCollapsingButton({logoClicked, toggleCreateCategory}) {
             </button>
             {isOpen && (
         <div>
+          <Link to="/categories">
           <button className="menu_item" id="active_users_btn">
             <div className="collpased-icon-button">
               <FontAwesomeIcon icon={faListUl} size="1x" />
               </div>
               {!logoClicked && <div className="collapsed-buttons-text">Category List</div>}
             </button>
+            </Link>
             
           <button className="menu_item" id='inactive_users_btn' onClick={toggleCreateCategory}>
             <div className="collpased-icon-button">

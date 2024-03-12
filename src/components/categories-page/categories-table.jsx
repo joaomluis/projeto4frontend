@@ -4,11 +4,11 @@ import CategoryRow from './category-table-element.jsx';
 import './categories-table.css';
 
 
-function CategoriesTable({onDelete }) {
+function CategoriesTable({onDelete, reload, setReload }) {
 
     const token = useUserStore(state => state.user.token);
     const [categories, setCategories] = useState([]);
-    const [reload, setReload] = useState(false);
+    
 
 
 

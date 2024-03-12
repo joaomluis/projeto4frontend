@@ -1,6 +1,8 @@
 import './categories-table.css';
 import { useState } from 'react';
 import useUserStore from '../../store/useUserStore';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function CategoryRow({ category, setReload }) {
@@ -25,6 +27,11 @@ function CategoryRow({ category, setReload }) {
     });
 
     if (response.ok) {
+      toast.info('Category deleted successfully', {position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+      theme: "colored"
+      });
       console.log("Category deleted successfully");
    
       setReload(prev => !prev);

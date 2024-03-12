@@ -70,3 +70,23 @@
     font-weight: bold;
     border-block: groove;
  }
+
+ button {
+   background-color: transparent;
+   border: solid;
+   border-width: 2px;
+   border-color: var(--black);
+   cursor: pointer;
+   padding: 8px;
+   border-radius: 5px;
+   font-size: 16px;
+   color: var(--black);
+}
+
+button:hover {
+   background-color: var(--white_hover);
+}
+
+button:active {
+   background-color: var(--white_active);
+}

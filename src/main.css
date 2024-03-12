@@ -94,7 +94,7 @@ input:focus {
 input::placeholder {
    color: var(--black);
 }
-
+/*
 button {
    background-color: transparent;
    border: solid;
@@ -114,6 +114,8 @@ button:hover {
 button:active {
    background-color: var(--white_active);
 }
+
+*/
 
 textarea {
    resize: none;

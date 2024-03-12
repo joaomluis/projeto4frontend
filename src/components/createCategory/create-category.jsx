@@ -1,8 +1,10 @@
 import './create-category.css';
 import useUserStore from '../../store/useUserStore';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function CreateCategory({onClose}) {
+function CreateCategory({onClose, setReload}) {
 
     const token = useUserStore(state => state.user.token);
     const [title, setTitle] = useState('');
@@ -39,6 +41,12 @@ function CreateCategory({onClose}) {
     
             if (response.ok) {
                  console.log("Category created successfully");
+                 toast.info('Category created successfully', {position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                theme: "colored"
+                });
+                 setReload(prev => !prev);
                 
                 onClose();
                 document.getElementById('title').value = '';

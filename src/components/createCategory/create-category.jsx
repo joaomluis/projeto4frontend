@@ -1,15 +1,22 @@
 import './create-category.css';
 import useUserStore from '../../store/useUserStore';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function CreateCategory({onClose, setReload}) {
+function CreateCategory({onClose, setReload, category}) {
 
     const token = useUserStore(state => state.user.token);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState('');
+
+    useEffect(() => {
+      if (category) {
+          setTitle(category.title);
+          setDescription(category.description);
+      }
+    }, [category]);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -20,37 +27,53 @@ function CreateCategory({onClose, setReload}) {
   };
 
 
-  const createCategory = async (event) => {
+  const createOrUpdateCategory = async (event) => {
     event.preventDefault();
 
-        let createCategoryRequest = "http://localhost:8080/project_backend/rest/categories/createCategory";
+    const url = category ? 
+    `http://localhost:8080/project_backend/rest/categories/update/${category.idCategory}` : 
+    "http://localhost:8080/project_backend/rest/categories/createCategory";
+
+    const method = category ? "PUT" : "POST";
+
+    const body = category ? 
+      JSON.stringify({
+          idCategory: category.idCategory,
+          title: title,
+          description: description
+    }) : 
+      JSON.stringify({
+        title: title,
+        description: description
+      });
   
         try {
-            const response = await fetch(createCategoryRequest, {
-                method: "POST",
+            const response = await fetch(url, {
+                method: method,
                 headers: {
                     'Accept': '*/*',
                     "Content-Type": "application/json",
                     token: token
                 },
-                body: JSON.stringify({
-                    title: title,
-                    description: description
-                })
+                body: body
             });
     
             if (response.ok) {
-                 console.log("Category created successfully");
-                 toast.info('Category created successfully', {position: "top-center",
+
+              const message = category ? "Category updated successfully" : "Category created successfully";
+
+              toast.info(message, {position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
                 theme: "colored"
                 });
-                 setReload(prev => !prev);
+                console.log("test")
+              setReload(prev => !!prev);
+              console.log("test2")
                 
-                onClose();
-                document.getElementById('title').value = '';
-                document.getElementById('description').value = '';
+              onClose();
+              setTitle('');
+              setDescription('');
                 
             } else {
               const errorMessage = await response.text(); 
@@ -94,7 +117,7 @@ function CreateCategory({onClose, setReload}) {
             </textarea>
                 
             <div className="buttons">
-            <button className="btns_task" id="category_save" onClick={createCategory}>Save</button>
+            <button className="btns_task" id="category_save" onClick={createOrUpdateCategory}>Save</button>
             <button className="btns_task" id="category_delete" onClick={onClose}>Cancel</button>
             </div>
             

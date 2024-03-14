@@ -5,8 +5,8 @@ import LogoutButton from './sidebar-main-buttons/logoutButton.jsx';
 import UserCollapsingButton from './sidebar-main-buttons/usersCollapsingButtons.jsx';
 import CategoryCollapsingButton from './sidebar-main-buttons/categoryCollapsingButtons.jsx';
 import InactiveTasks from './sidebar-main-buttons/inactiveTasksButton.jsx';
-import UserProfileButton from './sidebar-main-buttons/userProfileButton.jsx';
 import HomeButton from './sidebar-main-buttons/homeButton.jsx';
+import EditProfileButton from './sidebar-main-buttons/editProfileButton.jsx';
 
 
 
@@ -24,7 +24,7 @@ function SidebarMain( {logoClicked, toggleCreateCategory}) {
    return (
       <aside>
          <div className={`menu_item ${logoClicked ? 'reduced-width' : ''}`}>
-            <UserProfileButton token={token} logoClicked={logoClicked} />
+            <EditProfileButton token={token} logoClicked={logoClicked} />
             <HomeButton token={token} logoClicked={logoClicked} />
             { (userType === 'product_owner' || userType === 'scrum_master') && <UserCollapsingButton token={token} logoClicked={logoClicked} userType={userType}/> }
             { userType === 'product_owner' && <CategoryCollapsingButton token={token} logoClicked={logoClicked} toggleCreateCategory={toggleCreateCategory} /> }

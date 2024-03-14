@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function HomeButton({logoClicked}) {
     return (
-        <div className="edit-profile-button">
+        <div className="home-button">
             <Link to="/">
                 <button className="menu_item" id="btn_edit" >
                     <div className="icon">

@@ -3,12 +3,25 @@ import { useState } from 'react';
 import useUserStore from '../../store/useUserStore';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CreateCategory from '../createCategory/create-category.jsx';
+import Portal from '../portal/portal.jsx';
 
 
 function CategoryRow({ category, setReload }) {
 
     const [error, setError] = useState(null);
     const token = useUserStore(state => state.user.token);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setReload(prev => !prev);
+    };
 
 
     const handleDelete = async () => {
@@ -46,12 +59,18 @@ function CategoryRow({ category, setReload }) {
     };
   
     return (
+      <>
+      {isModalOpen && (
+        <Portal>
+        <CreateCategory onClose={closeModal} setReload={setReload} category={category} />
+        </Portal>
+      )}
       <tr className="category_table_row">
         <td style={{ textAlign: "center" }}>{category.title}</td>
         <td style={{ textAlign: "center" }}>{category.description}</td>
         <td style={{ textAlign: "center" }}>{category.author.username}</td>
         <td style={{ textAlign: "center" }}>
-          <button className="edit_button" onClick={() => window.location.href = `edit-category.html?categoryId=${category.idCategory}`}>
+          <button className="edit_button" onClick={openModal}>
             &#128214;
           </button>
           <button className="delete_button" onClick={handleDelete}>
@@ -59,6 +78,7 @@ function CategoryRow({ category, setReload }) {
           </button>
         </td>
       </tr>
+      </>
     );
   }
 

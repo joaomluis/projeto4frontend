@@ -11,6 +11,7 @@ import useUserStore from './store/useUserStore.jsx';
 import MainPageScrum from './components/main-page/main-scrum-page.jsx';
 import CreateCategory from './components/createCategory/create-category.jsx';
 import CategoriesTable from './components/categories-page/categories-table.jsx';
+import EditProfile from './components/edit-profile/edit-profile.jsx';
 import { ToastContainer } from 'react-toastify';
 
 
@@ -38,7 +39,7 @@ function App() {
       };
 
 
-
+      
     return (
         <div className="App">
             <div id="body_color" className={rotate ? 'margin80 width95' : 'margin260 width90'}></div>
@@ -52,8 +53,8 @@ function App() {
             <Route path="/" element={!isLoggedIn ? <Login /> : <Navigate to="/scrum" />} />
             <Route path="/register" element={<Register/>} />
             <Route path="/scrum" element={<MainPageScrum/>}  />
-            <Route path="/create-category" element={<CreateCategory/>} />
             <Route path="/categories" element={<CategoriesTable reload={reload} setReload={setReload}/>}/>
+            <Route path="/edit-profile" element={<EditProfile/>}/>
         </Routes>
 
         {isCreateCategoryOpen && <CreateCategory onClose={toggleCreateCategory} setReload={setReload}/>}

@@ -67,7 +67,9 @@ function CreateCategory({onClose, setReload, category}) {
                 hideProgressBar: true,
                 theme: "colored"
                 });
-              setReload(prev => !prev);
+                console.log("test")
+              setReload(prev => !!prev);
+              console.log("test2")
                 
               onClose();
               setTitle('');

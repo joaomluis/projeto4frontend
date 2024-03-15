@@ -79,7 +79,7 @@ const useInactiveUsersTableStore = create((set, get) => {
     });
 
     if (response.ok) {
-      toast.info('User restored successfully', {position: "top-center",
+      toast.info(`${id} status set to active`, {position: "top-center",
       autoClose: 3000,
       hideProgressBar: true,
       theme: "colored"

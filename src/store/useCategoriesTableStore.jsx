@@ -67,14 +67,12 @@ const useCategoriesTableStore = create((set, get) => {
 
   fetchCategories();
 
-  const useEditModal = create(set => ({
-    isModalOpen: false,
-    openModal: () => set({ isModalOpen: true }),
-    closeModal: () => set({ isModalOpen: false }),
-  }));
+  const openModal = async (id) => {
+  };
+
 
   const buttons = (id ) => [
-    <button key={`${id}-edit`} className="edit_button" onClick={() => useEditModal}>
+    <button key={`${id}-edit`} className="edit_button" >
       &#128214;
     </button>,
     <button key={`${id}-delete`} className="delete_button" onClick={() => deleteCategory(id)}>
@@ -93,7 +91,7 @@ const useCategoriesTableStore = create((set, get) => {
     setData: (data) => set(state => ({ data })),
     fetchCategories,
     buttons: buttons,
-    useEditModal: useEditModal
+    
   };
 });
 

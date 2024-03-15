@@ -48,7 +48,7 @@ const useActiveUsersTableStore = create((set, get) => {
     });
 
     if (response.ok) {
-      toast.info('User status set no inactive', {position: "top-center",
+      toast.info(`${id} status set to inactive`, {position: "top-center",
       autoClose: 3000,
       hideProgressBar: true,
       theme: "colored"
@@ -78,14 +78,18 @@ const useActiveUsersTableStore = create((set, get) => {
   }));
 
   const buttons = (id, ) => [
+    <>
     <button key={`${id}-edit`} className="edit_button" onClick={() => useEditModal}>
       &#128214;
-    </button>,
+    </button>
     <button key={`${id}-delete`} className="delete_button" onClick={() => softDeleteUser(id)}>
       &#128465;
     </button>
+    <button key={`${id}-delete`} className="delete_button" >
+      Delete Tasks
+    </button>
+    </>
   ];
-
 
 
   return {

@@ -1,0 +1,48 @@
+
+
+ input {
+    border-radius: 5px;
+    background-color: var(--white_hover);
+    border: 0px;
+    padding: 10px;
+    box-shadow: 0px 0px 2px 0px black;
+  }
+
+  .taskMain {
+    padding: 20px;
+      padding-left: 20px;
+    margin-bottom: 55px;
+    padding-left: 0px;
+  }
+
+  .descricaoCategoria {
+    margin: 40px auto;
+    background-color: var(--white);
+    border-radius: 12px;
+    width: 24em;
+    padding: 10px 1em 1.8em 1em;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+    transform: translate(-50%, -50%);
+    top: 40%;
+    left: 850px;
+    position: absolute;
+ }
+
+ .register_elemUser {
+    margin-bottom: 12px;
+    box-shadow: var(--text_shadow);
+    margin-right: 11px;
+    margin-left: 5px;
+  }
+
+  #create_user_title {
+    margin-bottom: 20px;
+  }
+
+  select {
+    width: 45%;
+    padding: 8px;
+    margin-bottom: 5%;
+    box-sizing: border-box;
+    margin-left: 5px;
+  }

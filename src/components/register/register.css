@@ -15,6 +15,7 @@ form {
     flex-direction: column;
     top: 45%;
     box-shadow: -50px 0px 30px 30px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
 }
  
  #form_register h2 {

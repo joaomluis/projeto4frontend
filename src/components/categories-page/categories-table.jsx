@@ -59,13 +59,7 @@ function CategoriesTable({onDelete, reload, setReload }) {
                         </tr>
                     </thead>
                     <tbody>
-                    {categories.map(category => (
-                        <CategoryRow 
-                        key={category.idCategory} 
-                        category={category} 
-                        setCategories={setCategories}
-                        setReload={setReload} />
-                    ))}
+                    
                     </tbody>
                 </table>
             </div>

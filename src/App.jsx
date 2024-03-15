@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import './main.css';
 import Login from './components/login/login.jsx';
 import Register from './components/register/register.jsx';
@@ -12,7 +13,12 @@ import MainPageScrum from './components/main-page/main-scrum-page.jsx';
 import CreateCategory from './components/createCategory/create-category.jsx';
 import CategoriesTable from './components/categories-page/categories-table.jsx';
 import EditProfile from './components/edit-profile/edit-profile.jsx';
-import { ToastContainer } from 'react-toastify';
+import DynamicTable from './components/table/dynamic-table.jsx';
+import useCategoriesTableStore from './store/useCategoriesTableStore.jsx';
+import useInactiveUsersTableStore from './store/useInactiveUsersTableStore.jsx';
+import ActiveUsersList from './store/useActiveUsersTableStore.jsx';
+import NewUser from './components/new-user/new-user.jsx';
+
 
 
 
@@ -53,8 +59,11 @@ function App() {
             <Route path="/" element={!isLoggedIn ? <Login /> : <Navigate to="/scrum" />} />
             <Route path="/register" element={<Register/>} />
             <Route path="/scrum" element={<MainPageScrum/>}  />
-            <Route path="/categories" element={<CategoriesTable reload={reload} setReload={setReload}/>}/>
+            <Route path="/categories" element={<DynamicTable store={useCategoriesTableStore} />} />
+            <Route path="/inactive-users" element={<DynamicTable store={useInactiveUsersTableStore}/>} />
+            <Route path="/active-users" element={<DynamicTable store={ActiveUsersList}/>} />
             <Route path="/edit-profile" element={<EditProfile/>}/>
+            <Route path="/create-user" element={<NewUser/>}/>
         </Routes>
 
         {isCreateCategoryOpen && <CreateCategory onClose={toggleCreateCategory} setReload={setReload}/>}

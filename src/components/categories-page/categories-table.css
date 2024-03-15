@@ -29,7 +29,8 @@
  td {
     padding: 8px;
     border-radius: 12px;
- }
+    text-align: center;
+   }
  
  
  th {

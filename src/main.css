@@ -1471,16 +1471,18 @@ label {
 }
 
 #btn_newUser{
-   width: 10%;
+   width: 7%;
    text-align: center;
-   font-size: 15px;
+   font-size: 13px;
    border-radius: 10px;
-   margin-left: 110px;
+   margin-left: 376px;
    background-color: var(--white);
-   padding: 3px 0px 8px 5px;
+   padding: 3px 3px 3px 3px;
    font-weight: bold;
-   margin-top: 30px;
+   margin-top: 2px;
    cursor: pointer;
+   border-block: groove;
+   color: black;
 
 }
 
@@ -1511,6 +1513,10 @@ label {
 
 #category_save, #category_delete {
    margin-top: 20px; 
+}
+
+#user_save, #user_delete {
+   margin-top: 5px; 
 }
 
 /* Category table */

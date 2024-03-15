@@ -51,6 +51,7 @@ const useCategoriesTableStore = create((set, get) => {
       theme: "colored"
       });
       console.log("Category deleted successfully");
+      fetchCategories();
    
       
     } else {
@@ -91,6 +92,7 @@ const useCategoriesTableStore = create((set, get) => {
     setData: (data) => set(state => ({ data })),
     fetchCategories,
     buttons: buttons,
+    deleteCategory
     
   };
 });

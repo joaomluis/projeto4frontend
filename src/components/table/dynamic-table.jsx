@@ -14,7 +14,6 @@ function DynamicTable({store}) {
         tableTitle: state.tableTitle,
         excludeKeys: state.excludeKeys,
         displayOrder: state.displayOrder,
-        buttons: state.buttons,
         useEditModal: state.useEditModal,
         
       }));
@@ -50,7 +49,6 @@ function DynamicTable({store}) {
             item={item}
             excludeKeys={excludeKeys}
             displayOrder={displayOrder}
-            buttons={buttons}
              />
           ))}
         

@@ -3,8 +3,9 @@ import useUserStore from '../../store/useUserStore';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CategoryStore from '../../store/useCategoriesTableStore';
 
-function CreateCategory({onClose, setReload, category}) {
+function CreateCategory({onClose, category}) {
 
     const token = useUserStore(state => state.user.token);
     const [title, setTitle] = useState('');
@@ -67,9 +68,8 @@ function CreateCategory({onClose, setReload, category}) {
                 hideProgressBar: true,
                 theme: "colored"
                 });
-                console.log("test")
-              setReload(prev => !!prev);
-              console.log("test2")
+               
+              CategoryStore.getState().fetchCategories();
                 
               onClose();
               setTitle('');

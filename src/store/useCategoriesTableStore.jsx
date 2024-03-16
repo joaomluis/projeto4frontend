@@ -51,6 +51,7 @@ const useCategoriesTableStore = create((set, get) => {
       theme: "colored"
       });
       console.log("Category deleted successfully");
+      fetchCategories();
    
       
     } else {
@@ -71,17 +72,6 @@ const useCategoriesTableStore = create((set, get) => {
   };
 
 
-  const buttons = (id ) => [
-    <button key={`${id}-edit`} className="edit_button" >
-      &#128214;
-    </button>,
-    <button key={`${id}-delete`} className="delete_button" onClick={() => deleteCategory(id)}>
-      &#128465;
-    </button>
-  ];
-
-
-
   return {
     headers: ['Title', 'Description', 'Author', 'Category Edition'],
     data: [],
@@ -90,7 +80,7 @@ const useCategoriesTableStore = create((set, get) => {
     displayOrder: ['title', 'description', 'author'],
     setData: (data) => set(state => ({ data })),
     fetchCategories,
-    buttons: buttons,
+    deleteCategory
     
   };
 });

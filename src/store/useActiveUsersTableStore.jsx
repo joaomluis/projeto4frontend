@@ -4,10 +4,12 @@ import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import inactiveUsersStore from './useInactiveUsersTableStore';
 
+var token = useUserStore.getState().user.token;
+
 const useActiveUsersTableStore = create((set, get) => {
   const getActiveUsers = async () => {
     const activeUsersRequest = "http://localhost:8080/project_backend/rest/users/activeUsers";
-    const token = useUserStore.getState().user.token;
+    
    
 
     try {
@@ -34,7 +36,7 @@ const useActiveUsersTableStore = create((set, get) => {
 
 
   const softDeleteUser = async (id) => {
-    const token = useUserStore.getState().user.token;
+
     let deleteCategoryRequest = `http://localhost:8080/project_backend/rest/users/deleteUser`;
   try {
     const response = await fetch(deleteCategoryRequest, {
@@ -66,31 +68,90 @@ const useActiveUsersTableStore = create((set, get) => {
     
   }};
 
+  const updateProfile = async (username, updatedUserData) => {
+
+    try {
+        const response = await fetch("http://localhost:8080/project_backend/rest/users/updateProfilePO", {
+            method: 'PUT',
+            headers: {
+             'Content-Type': 'application/json',
+             'Accept': '*/*',
+             token:token,
+             username:username
+            },
+            body: JSON.stringify(updatedUserData)
+        });
+ 
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            toast.info('User updated successfully', {position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            theme: "colored"
+            });
+
+            getActiveUsers();
+        }else{
+          const errorMessage = await response.text();
+          console.log(errorMessage);
+          return errorMessage;
+       }
+     
+    }catch(error){
+       alert("Something went wrong");
+    }
+ }
+
+ const createUser = async (user) => {
+
+  const url = `http://localhost:8080/project_backend/rest/users/addUserByPO`;
+  
+
+      try {
+          const response = await fetch(url, {
+              method: "PUT",
+              headers: {
+                  'Accept': '*/*',
+                  "Content-Type": "application/json",
+                  token: token
+              },
+              body: JSON.stringify(user)
+          });
+  
+          if (response.ok) {
+
+            
+
+            toast.info('User created successfully', {position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: true,
+              theme: "colored"
+              });
+
+              getActiveUsers();
+
+              return Promise.resolve();
+             
+              
+          } else {
+            const errorMessage = await response.text(); 
+            
+            console.error("Failed to create user:", errorMessage);
+
+            return Promise.reject(new Error(errorMessage));
+
+            }
+      } catch (error) {
+          console.error("Error creating user:", error);
+          return null;
+      }
+   }
+
 
 
   getActiveUsers();
   
-
-  const useEditModal = create(set => ({
-    isModalOpen: false,
-    openModal: () => set({ isModalOpen: true }),
-    closeModal: () => set({ isModalOpen: false }),
-  }));
-
-  const buttons = (id, ) => [
-    <>
-    <button key={`${id}-edit`} className="edit_button" onClick={() => useEditModal}>
-      &#128214;
-    </button>
-    <button key={`${id}-delete`} className="delete_button" onClick={() => softDeleteUser(id)}>
-      &#128465;
-    </button>
-    <button key={`${id}-delete`} className="delete_button" >
-      Delete Tasks
-    </button>
-    </>
-  ];
-
 
   return {
     headers: ['Username', 'Email', 'Phone', 'Role', 'User Edition'],
@@ -100,8 +161,9 @@ const useActiveUsersTableStore = create((set, get) => {
     displayOrder: ['username', 'email', 'phoneNumber', 'typeOfUser'],
     setData: (data) => set(state => ({ data })),
     getActiveUsers,
-    buttons: buttons,
-    useEditModal: useEditModal
+    softDeleteUser,
+    updateProfile,
+    createUser
   };
 });
 

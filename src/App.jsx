@@ -66,7 +66,7 @@ function App() {
             <Route path="/create-user" element={<NewUser/>}/>
         </Routes>
 
-        {isCreateCategoryOpen && <CreateCategory onClose={toggleCreateCategory}/>}
+        {isCreateCategoryOpen && <CreateCategory onClose={toggleCreateCategory} />}
 
         <ToastContainer />
         </div>

@@ -1,11 +1,12 @@
-import  { useState } from 'react';
+import  { useState, useEffect } from 'react';
 import './new-user.css';
 import { toast } from 'react-toastify';
 import useUserStore from '../../store/useUserStore';
+import ActiveUsersStore from '../../store/useActiveUsersTableStore';
 
 
 
-function NewUser({setShowNewUser}) {
+function NewUser({setShowNewUser, user}) {
 
     const token = useUserStore(state => state.user.token);
 
@@ -17,69 +18,45 @@ function NewUser({setShowNewUser}) {
     const [updatePhone, setUpdatePhone] = useState('');
     const [updatePhotoMain, setUpdatePhotoMain] = useState('');
     const [updateTypeOfUser, setUpdateTypeOfUser] = useState('');
+
+    useEffect(() => {
+        if (user) {
+            setUpdateUsername(user.username);
+            setUpdatePassword(user.password);
+            setUpdateEmail(user.email);
+            setUpdateFirstName(user.firstName);
+            setUpdateLastName(user.lastName);
+            setUpdatePhone(user.phoneNumber);
+            setUpdatePhotoMain(user.imgURL);
+            setUpdateTypeOfUser(user.typeOfUser);
+        }
+      }, [user]);
+
+      const newUser = {
+        username: updateUsername,
+        password: updatePassword,
+        email: updateEmail,
+        firstName: updateFirstName,
+        lastName: updateLastName,
+        phoneNumber: updatePhone,
+        imgURL: updatePhotoMain,
+        typeOfUser: updateTypeOfUser
+    };
   
 
+    const titleModal = user ? 'Edit User' : 'Create User';
 
-    const createOrUpdateUser = async () => {
-        
-
-        const newUser = {
-            username: updateUsername,
-            password: updatePassword,
-            email: updateEmail,
-            firstName: updateFirstName,
-            lastName: updateLastName,
-            phoneNumber: updatePhone,
-            imgURL: updatePhotoMain,
-            typeOfUser: updateTypeOfUser
-        };
     
-        const url = `http://localhost:8080/project_backend/rest/users/addUserByPO`;
-        
-      
-            try {
-                const response = await fetch(url, {
-                    method: "PUT",
-                    headers: {
-                        'Accept': '*/*',
-                        "Content-Type": "application/json",
-                        token: token
-                    },
-                    body: JSON.stringify(newUser)
-                });
-        
-                if (response.ok) {
-    
-                  
-    
-                  toast.info('User created successfully', {position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    theme: "colored"
-                    });
-                   
-                    
-                } else {
-                  const errorMessage = await response.text(); 
-                  
-                  console.error("Failed to create user:", errorMessage);
-      
-                  }
-            } catch (error) {
-                console.error("Error creating user:", error);
-                return null;
-            }
-         }
 
     
     return (
         <>
 
-<main className="create">
+        <main className="create">
           
           <div id="overlay-modal-category"></div>
           <div className="descricaoCategoria">
-          <h2 id='create_user_title'>Create new user</h2>
+          <h2 id='create_user_title'>{titleModal}</h2>
 
             <input type="text" 
             placeholder="Username" 
@@ -121,6 +98,7 @@ function NewUser({setShowNewUser}) {
             onChange={(e) => setUpdateLastName(e.target.value)} 
             required/>
 
+
             <input type="text" 
             placeholder="Phone number" 
             className="register_elemUser" 
@@ -128,6 +106,7 @@ function NewUser({setShowNewUser}) {
             value={updatePhone}
             onChange={(e) => setUpdatePhone(e.target.value)}
             required/>
+
             <input type="url" 
             placeholder="Img URL" 
             className="register_elemUser" 
@@ -135,6 +114,7 @@ function NewUser({setShowNewUser}) {
             value={updatePhotoMain}
             onChange={(e) => setUpdatePhotoMain(e.target.value)}
             required />
+            
             <select  id="register_typeOfUser" 
             name="opcoes"
             value={updateTypeOfUser}
@@ -146,7 +126,20 @@ function NewUser({setShowNewUser}) {
             </select>
 
                <div className="buttons">
-            <button className="btns_task" id="user_save" onClick={createOrUpdateUser}>Save</button>
+               <button className="btns_task" id="user_save" onClick={async () => {
+                    try {
+                        if (user) {
+                            console.log('user', user);
+                        await ActiveUsersStore.getState().updateProfile(user.username, newUser);
+                        } else {
+                        await ActiveUsersStore.getState().createUser(newUser);
+                        }
+                        setShowNewUser(false);
+                    } catch (error) {
+                        console.error("Error creating or updating user:", error);
+                    }
+                    }}>Save
+                </button>
             <button className="btns_task" id="user_delete" onClick={() => setShowNewUser(false)} >Cancel</button>
             </div>
             <div id="error_creating_category"></div>

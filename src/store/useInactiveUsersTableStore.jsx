@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import useUserStore from './useUserStore';
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
 import ActiveUsersStore from './useActiveUsersTableStore';
 
 const useInactiveUsersTableStore = create((set, get) => {
@@ -53,10 +52,11 @@ const useInactiveUsersTableStore = create((set, get) => {
       theme: "colored"
       });
       
-      getInactiveUsers(); //ISTO É UM PREGO, MAS NÃO SEI COMO FAZER MELHOR 
+      getInactiveUsers(); 
       
     } else {
       const errorMessage = await response.text();
+      console.error(errorMessage);
      
     }
   } catch (error) {
@@ -85,7 +85,7 @@ const useInactiveUsersTableStore = create((set, get) => {
       theme: "colored"
       });
       
-      getInactiveUsers(); //ISTO É UM PREGO, MAS NÃO SEI COMO FAZER MELHOR 
+      getInactiveUsers(); 
       ActiveUsersStore.getState().getActiveUsers();
       
     } else {
@@ -98,26 +98,9 @@ const useInactiveUsersTableStore = create((set, get) => {
   }};
 
 
-
   getInactiveUsers();
   
-
-  const useEditModal = create(set => ({
-    isModalOpen: false,
-    openModal: () => set({ isModalOpen: true }),
-    closeModal: () => set({ isModalOpen: false }),
-  }));
-
-  const buttons = (id, ) => [
-    <button key={`${id}-edit`} className="edit_button" onClick={() => restoreUser(id)}>
-      &#8634;
-    </button>,
-    <button key={`${id}-delete`} className="delete_button" onClick={() => deleteUserPerma(id)}>
-      &#128465;
-    </button>
-  ];
-
-
+  
 
   return {
     headers: ['Username', 'Email', 'Phone', 'Role', 'User Edition'],
@@ -127,8 +110,8 @@ const useInactiveUsersTableStore = create((set, get) => {
     displayOrder: ['username', 'email', 'phoneNumber', 'typeOfUser'],
     setData: (data) => set(state => ({ data })),
     getInactiveUsers,
-    buttons: buttons,
-    useEditModal: useEditModal
+    restoreUser,
+    deleteUserPerma
   };
 });
 

@@ -2,13 +2,25 @@ import React from 'react';
 import './main-page.css';
 import useTasksStore from '../../store/useTasksStore';
 import Task from '../task/task';
+import CreateTask from '../task/createTask';
+import { useState } from 'react';
 
 function TaskColumns({tasks}) {
+
+   const [showModal, setShowModal] = useState(false);
+    const showCreateTaskModal = () => {
+        
+        setShowModal(true);
+    
+      };
+
   return (
     <>   
      <div id="scrum_main">
          
          <section id="scrum_section">
+
+            {showModal && <CreateTask setShowModal={setShowModal} />}
             <div className="column" 
             id="column1"
             onDragOver={(event) => {
@@ -23,7 +35,7 @@ function TaskColumns({tasks}) {
                {tasks.filter(task => task.state === 'toDo').map(task => <Task key={task.id} task={task} />)}
                </section>
                
-               <button id="btn_task">&nbsp;+ New Task</button>
+               <button id="btn_task" onClick={showCreateTaskModal}>&nbsp;+ New Task</button>
             </div>
 
 
@@ -60,6 +72,7 @@ function TaskColumns({tasks}) {
                </section>
             </div>
          </section>
+           
       </div>
 
 

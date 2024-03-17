@@ -1,5 +1,6 @@
 import {create} from 'zustand';
 import useUserStore from './useUserStore';
+import { toast } from 'react-toastify';
 
 
 
@@ -54,7 +55,8 @@ const useTasksStore = create((set) => {
                  "Content-Type": "application/json",
                  token: token,
                  newState: state
-              }
+              },
+              
            });
      
            if (response.ok) {
@@ -69,11 +71,50 @@ const useTasksStore = create((set) => {
         }
      }
 
+     const createTask = async (task, categoryId) => {
+
+        const token = useUserStore.getState().user.token;
+        let createTaskRequest = "http://localhost:8080/project_backend/rest/tasks/createTask";
+
+        try {
+            const response = await fetch(createTaskRequest, {
+               method: "POST",
+               headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                  token: token,
+                  categoryId: categoryId
+               }, 
+                body: JSON.stringify(task),
+
+            });
+      
+            if (response.ok) {
+            
+                toast.info("Task created successfully", {position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                theme: "colored"
+                });
+
+                getActiveTasks();
+               
+            } else {
+               const error = await response.json();
+                console.error("Failed to create task:", error);
+            }
+         
+         } catch (error) {
+            console.error("Error updating task state:", error);
+         }
+      
+     }
 
      return {
         data: [],
         updateTaskState,
-        getActiveTasks
+        getActiveTasks,
+        createTask
         
       };
 

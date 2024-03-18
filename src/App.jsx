@@ -16,6 +16,7 @@ import EditProfile from './components/edit-profile/edit-profile.jsx';
 import DynamicTable from './components/table/dynamic-table.jsx';
 import useCategoriesTableStore from './store/useCategoriesTableStore.jsx';
 import useInactiveUsersTableStore from './store/useInactiveUsersTableStore.jsx';
+import useTasksStore from './store/useTasksStore.jsx';
 import ActiveUsersList from './store/useActiveUsersTableStore.jsx';
 import NewUser from './components/new-user/new-user.jsx';
 
@@ -62,6 +63,7 @@ function App() {
             <Route path="/categories" element={<DynamicTable store={useCategoriesTableStore} />} />
             <Route path="/inactive-users" element={<DynamicTable store={useInactiveUsersTableStore}/>} />
             <Route path="/active-users" element={<DynamicTable store={ActiveUsersList}/>} />
+            <Route path="/inactive-tasks" element={<DynamicTable store={useTasksStore}/>} />
             <Route path="/edit-profile" element={<EditProfile/>}/>
             <Route path="/create-user" element={<NewUser/>}/>
         </Routes>

@@ -8,7 +8,7 @@ function DynamicTable({store}) {
     const location = useLocation();
   
 
-    const { headers, data, tableTitle, excludeKeys, displayOrder, buttons, useEditModal } = store(state => ({
+    const { headers, data, tableTitle, excludeKeys, displayOrder } = store(state => ({
         headers: state.headers,
         data: state.data,
         tableTitle: state.tableTitle,
@@ -45,11 +45,11 @@ function DynamicTable({store}) {
         <tbody>
          {data.map(item => (
             
-            <CategoryRow key={item.idCategory ? item.idCategory : item.username} 
+            <CategoryRow key={item.idCategory ? item.idCategory : (item.username ? item.username : item.id)}
             item={item}
             excludeKeys={excludeKeys}
             displayOrder={displayOrder}
-             />
+            />
           ))}
         
         </tbody>

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 function InactiveTasksButton({logoClicked, token}) {
     return (
         <div className="inactive-tasks-button">
-            <Link to = "/editProfile">
+            <Link to = "/inactive-tasks">
             <button className="menu_item" id="btn_edit" >
                 <div className="icon">
                     <FontAwesomeIcon icon={faClipboardList} size="2x" />

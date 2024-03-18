@@ -3,16 +3,16 @@ import { useState } from "react";
 import CategoriesStore from "../../store/useCategoriesTableStore";
 import InactiveUsersStore from "../../store/useInactiveUsersTableStore";
 import ActiveUsersStore from "../../store/useActiveUsersTableStore";
-
-  import CreateCategory from "../createCategory/create-category";
+import useTasksStore from "../../store/useTasksStore";
+import CreateCategory from "../createCategory/create-category";
 import Portal from "../portal/portal";
 import NewUser from "../new-user/new-user";
 
 
-function DynamicRow({ item, excludeKeys, displayOrder, useEditModal}) {
+function DynamicRow({ item, excludeKeys, displayOrder}) {
+  
   const location = useLocation();
- 
-  const idField = item.idCategory ? 'idCategory' : 'username';
+  const idField = item.idCategory ? 'idCategory' : (item.username ? 'username' : 'id');
   const id = item[idField];
 
   //controlo do modal de editar categoria
@@ -59,14 +59,28 @@ function DynamicRow({ item, excludeKeys, displayOrder, useEditModal}) {
     </button>
     </>
   ];
+
+  const buttonsInactiveTasks = (id) => [
+    <button key={`${id}-edit`} className="edit_button" onClick={() => InactiveUsersStore.getState().restoreUser(id)}>
+      &#8634;
+    </button>,
+    <button key={`${id}-delete`} className="delete_button" onClick={() => useTasksStore.getState().deleteTaskPerma(id)}>
+      &#128465;
+    </button>
+  ];
   
     return (
       <tr>
         {displayOrder.filter(key => !excludeKeys.includes(key)).map(key => {
+
+        
           
           if (key === 'author') {
+            
             return <td key={`${item[idField]}-${key}`}>{item[key].username}</td>;
           } else if (key === 'username') {
+            return <td key={`${item[idField]}-${key}`}>{item[key]}</td>;
+          } else if (key === 'id') {
             return <td key={`${item[idField]}-${key}`}>{item[key]}</td>;
           } else {
             return <td key={`${item[idField]}-${key}`}>{item[key]}</td>;
@@ -86,6 +100,7 @@ function DynamicRow({ item, excludeKeys, displayOrder, useEditModal}) {
           <NewUser user={item} setShowNewUser={toggleEditActiveUser}/>
         </Portal>
         )}
+        {location.pathname === '/inactive-tasks' && buttonsInactiveTasks(id)}
         </td>
       </tr>
     );

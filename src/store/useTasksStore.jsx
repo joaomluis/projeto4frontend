@@ -28,7 +28,7 @@ const useTasksStore = create((set) => {
            if (response.ok) {
               const tasks = await response.json();
               
-                set(() => ({ data: tasks }));
+                set(() => ({ activeTasksdata: tasks }));
 
            } else {
               console.error("Failed to fetch tasks");
@@ -166,15 +166,134 @@ const useTasksStore = create((set) => {
             console.error("Error updating task state:", error);
          }
 
-
      }
 
+     
+    // SEPARADOR CONTEUDO DA TABELA COM AS INACTIVE TASKS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+    const getInactiveTasks = async () => {
+        const inactiveTasksRequest = "http://localhost:8080/project_backend/rest/tasks/getInactiveTasks";
+        const token = useUserStore.getState().user.token;
+    
+        try {
+          const response = await fetch(inactiveTasksRequest, {
+            method: "GET",
+            headers: {
+              Accept: "*/*",
+              "Content-Type": "application/json",
+              token: token
+            }
+          });
+    
+          if (response.ok) {
+            const inactiveTasks = await response.json();
+            
+            set(() => ({ data: inactiveTasks }));
+            
+          }
+        } catch (error) {
+          console.error('Failed to fetch tasks', error);
+        }
+      };
+    
+    
+    
+      const deleteTaskPerma = async (id) => {
+        console.log(id);
+        const token = useUserStore.getState().user.token;
+        let deleteTaskRequest = `http://localhost:8080/project_backend/rest/tasks/${id}/hardDeleteTask`;
+      try {
+        const response = await fetch(deleteTaskRequest, {
+          method: "DELETE",
+          headers: {
+            'Accept': '*/*',
+            "Content-Type": "application/json",
+            token: token,
+            username: id
+          }
+        });
+    
+        if (response.ok) {
+          toast.info('Task deleted permanently', {position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          transition: Slide,
+          theme: "colored"
+          });
+          
+          getInactiveTasks();
+          
+        } else {
+          const error = await response.text();
+          console.error(error);
+          toast.error(error, {position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                transition: Slide,
+                theme: "colored"
+                });
+         
+        }
+      } catch (error) {
+        console.error("Error deleting user:", error);
+        
+      }};
+    
+    
+      const restoreUser = async (id) => {
+        const token = useUserStore.getState().user.token;
+        let deleteTaskRequest = `http://localhost:8080/project_backend/rest/tasks/${id}/hardDeleteTask`;
+      try {
+        const response = await fetch(deleteTaskRequest, {
+          method: "PUT",
+          headers: {
+            'Accept': '*/*',
+            "Content-Type": "application/json",
+            token: token
+          }
+        });
+    
+        if (response.ok) {
+          toast.info(`${id} status set to active`, {position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          theme: "colored"
+          });
+          
+          
+          
+        } else {
+          const errorMessage = await response.text();
+         
+        }
+      } catch (error) {
+        console.error("Error restoring user:", error);
+        
+      }};
+    
+    
+      getInactiveTasks();
+
+
+     
+
      return {
+        activeTasksdata: [],
         data: [],
         updateTaskState,
         getActiveTasks,
+        getInactiveTasks,
+        deleteTaskPerma,
         createTask,
-        deleteTask
+        deleteTask,
+        headers: ['Title', 'Description', 'Initial Date', 'End Date', 'Author', 'Task Edition'],
+        tableTitle: 'Inactive Tasks',
+        excludeKeys: ['category'],
+        displayOrder: ['title', 'description', 'initialDate', 'endDate', 'author'],
+        setData: (data) => set(state => ({ data })),
+
         
       };
 

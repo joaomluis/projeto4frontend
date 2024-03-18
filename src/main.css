@@ -398,7 +398,8 @@ aside {
    left: 50%;
    transform: translate(-50%, -50%);
    border-radius: 8px;
-   visibility: hidden;
+   /*visibility: hidden; */
+   z-index: 1000;
 }
 
 #modal_cancel {
@@ -802,21 +803,7 @@ th {
    height: 220px;
 }
 
-#description-task {
-   padding: 8px;
-   margin-bottom: 12px;
-   box-sizing: border-box;
-   background-color: var(--white_active);
-   border-radius: 5px;
-   outline: none;
-   border: none;
-   box-shadow: 0px 0px 2px 0px black;
-   width: 95%;
-   margin-left: 10px;
-   margin-bottom: 0px;
-   border-radius: 5px;
-   height: 200px;
-}
+
 
 .descriptioLabelTask {
    font-size: 10px;
@@ -825,18 +812,9 @@ th {
    margin-left: 10px;
 }
 
-#category_element {
-   width: 95%;
-   margin-left: 10px;
-   margin-bottom: 0px;
-}
 
 
-#task_creationTitle {
-   color: var(--black);
-   margin-bottom: 6px;
-   margin-left: 10px;
-}
+
 
 #description::placeholder {
    color: var(--black);
@@ -880,22 +858,7 @@ th {
    margin-left: 10px;
 }
 
-#date_section {
-   display: flex;
-   flex-direction: row;
-   margin-left: 12px;
-}
 
-#date_section p {
-   color: var(--black);
-   margin-top: 5px;
-}
-
-#date_section input {
-   height: 5px;
-   width: 145px;
-   margin-top: 5px;
-}
 #end_date {
    margin-left: 30px;
 }

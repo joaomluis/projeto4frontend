@@ -25,11 +25,11 @@ function CreateTask({setShowModal}) {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [initialDate, setInitialDate] = useState('');
+    const [initialDate, setInitialDate] = useState(new Date().toISOString().slice(0, 10));
     const [endDate, setEndDate] = useState('');
-    const [priority, setPriority] = useState('');
+    const [priority, setPriority] = useState(100);
     const [category, setCategory] = useState('');
-    console.log(category);
+    console.log(priority);
 
     const newTask = {
         title: title,
@@ -39,7 +39,7 @@ function CreateTask({setShowModal}) {
         priority: priority
     }
     
-
+    console.log(priority);
 
   return (
     <>
@@ -73,6 +73,7 @@ function CreateTask({setShowModal}) {
                         setCategory(selectedCategory);
                     }}
                     >
+                     <option value="" disabled  >Select a Category</option>
                 {categories.map((category) => (
                     
                     <option value={category.idCategory}>
@@ -147,8 +148,6 @@ function CreateTask({setShowModal}) {
                <button className="btns_task" id="task_save" onClick={() => createTask(newTask, category)}>Save</button>
                <button className="btns_task" id="task_cancel" onClick={() => setShowModal(false)}>Cancel</button>
             </div>
-
-            <div id="error_creating_task"></div>
          </div>
       </main>
     

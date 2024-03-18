@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 import useUserStore from './useUserStore';
-import { toast } from 'react-toastify';
+import { toast, Slide } from 'react-toastify';
 
 
 
@@ -75,6 +75,7 @@ const useTasksStore = create((set) => {
 
         const token = useUserStore.getState().user.token;
         let createTaskRequest = "http://localhost:8080/project_backend/rest/tasks/createTask";
+     
 
         try {
             const response = await fetch(createTaskRequest, {
@@ -94,27 +95,86 @@ const useTasksStore = create((set) => {
                 toast.info("Task created successfully", {position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
+                transition: Slide,
                 theme: "colored"
                 });
 
                 getActiveTasks();
                
             } else {
-               const error = await response.json();
+               const error = await response.text();
                 console.error("Failed to create task:", error);
+
+                toast.error(error, {position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                transition: Slide,
+                theme: "colored"
+                });
+            }
+         
+         } catch (error) {
+            console.error("Error creating task:", error);
+         }
+      
+     }
+
+     const deleteTask = async (taskId) => {
+        console.log(taskId);
+
+        const token = useUserStore.getState().user.token;
+        let setTaskStatusRequest = `http://localhost:8080/project_backend/rest/tasks/${taskId}/softDelete`;
+
+        try {
+            const response = await fetch(setTaskStatusRequest, {
+               method: "PUT",
+               headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                  token: token,
+                  taskId: taskId
+               }, 
+                
+
+            });
+      
+            if (response.ok) {
+            
+                toast.info("Task active state updated successfully", {position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                theme: "colored"
+                });
+
+                getActiveTasks();
+               
+            } else {
+               const error = await response.text();
+                
+
+                toast.error(error, {position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                transition: Slide,
+                theme: "colored"
+                });
             }
          
          } catch (error) {
             console.error("Error updating task state:", error);
          }
-      
+
+
      }
 
      return {
         data: [],
         updateTaskState,
         getActiveTasks,
-        createTask
+        createTask,
+        deleteTask
         
       };
 

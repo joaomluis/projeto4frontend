@@ -120,7 +120,7 @@ const useTasksStore = create((set) => {
       
      }
 
-     const deleteTask = async (taskId) => {
+     const updateTaskActiveState = async (taskId) => {
         console.log(taskId);
 
         const token = useUserStore.getState().user.token;
@@ -148,6 +148,7 @@ const useTasksStore = create((set) => {
                 });
 
                 getActiveTasks();
+                getInactiveTasks();
                
             } else {
                const error = await response.text();
@@ -242,37 +243,6 @@ const useTasksStore = create((set) => {
       }};
     
     
-      const restoreUser = async (id) => {
-        const token = useUserStore.getState().user.token;
-        let deleteTaskRequest = `http://localhost:8080/project_backend/rest/tasks/${id}/hardDeleteTask`;
-      try {
-        const response = await fetch(deleteTaskRequest, {
-          method: "PUT",
-          headers: {
-            'Accept': '*/*',
-            "Content-Type": "application/json",
-            token: token
-          }
-        });
-    
-        if (response.ok) {
-          toast.info(`${id} status set to active`, {position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: true,
-          theme: "colored"
-          });
-          
-          
-          
-        } else {
-          const errorMessage = await response.text();
-         
-        }
-      } catch (error) {
-        console.error("Error restoring user:", error);
-        
-      }};
-    
     
       getInactiveTasks();
 
@@ -287,7 +257,7 @@ const useTasksStore = create((set) => {
         getInactiveTasks,
         deleteTaskPerma,
         createTask,
-        deleteTask,
+        updateTaskActiveState,
         headers: ['Title', 'Description', 'Initial Date', 'End Date', 'Author', 'Task Edition'],
         tableTitle: 'Inactive Tasks',
         excludeKeys: ['category'],

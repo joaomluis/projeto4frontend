@@ -17,7 +17,7 @@ const Task = ({ task, user }) => {
         backgroundColorTask = '#ff4d4d';
     }
 
-    const deleteTask = useTasksStore((state) => state.deleteTask);
+    const updateTaskActiveState = useTasksStore((state) => state.updateTaskActiveState);
 
 
     const [showModal, setShowModal] = useState(false);
@@ -48,7 +48,7 @@ const Task = ({ task, user }) => {
           &#9998; {/* botão para editar a task */}
         </button>
 
-        <button className="delete_btn" style={{ color: 'black' }} onClick={() => deleteTask(task.id)}>
+        <button className="delete_btn" style={{ color: 'black' }} onClick={() => updateTaskActiveState(task.id)}>
         &#128465; {/* botão para apagar a task */}
         </button>
         {showModal && <SeeTaskModal setShowModal={setShowModal} task={task}/>}

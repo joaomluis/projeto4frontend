@@ -61,7 +61,7 @@ function DynamicRow({ item, excludeKeys, displayOrder}) {
   ];
 
   const buttonsInactiveTasks = (id) => [
-    <button key={`${id}-edit`} className="edit_button" onClick={() => InactiveUsersStore.getState().restoreUser(id)}>
+    <button key={`${id}-edit`} className="edit_button" onClick={() => useTasksStore.getState().updateTaskActiveState(id)}>
       &#8634;
     </button>,
     <button key={`${id}-delete`} className="delete_button" onClick={() => useTasksStore.getState().deleteTaskPerma(id)}>

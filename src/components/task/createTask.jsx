@@ -4,7 +4,9 @@ import CategoriesStore from '../../store/useCategoriesTableStore';
 import useTasksStore from '../../store/useTasksStore';
 
 
-function CreateTask({setShowModal}) {
+function CreateTask({setShowModal, task}) {
+   
+   
 
     const colorMap = {
         100: '#44ca4d',
@@ -12,7 +14,7 @@ function CreateTask({setShowModal}) {
         300: '#ff4d4d',
       };
 
-    const [selectedOption, setSelectedOption] = useState(100);
+    const [selectedOption, setSelectedOption] = useState(task ? task.priority : 100);
 
     function handlePriorityChange(e) {
         const value = e.target.value;
@@ -21,16 +23,19 @@ function CreateTask({setShowModal}) {
       }
 
     const createTask = useTasksStore(state => state.createTask);
+    const updateTask = useTasksStore(state => state.updateTask);
+
     const categories = CategoriesStore(state => state.data);
 
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [initialDate, setInitialDate] = useState(new Date().toISOString().slice(0, 10));
-    const [endDate, setEndDate] = useState('');
-    const [priority, setPriority] = useState(100);
-    const [category, setCategory] = useState('');
-    console.log(priority);
 
+
+    const [title, setTitle] = useState(task ? task.title : '');
+    const [description, setDescription] = useState(task ? task.description  : '');
+    const [initialDate, setInitialDate] = useState(task ? task.initialDate : new Date().toISOString().slice(0, 10));
+    const [endDate, setEndDate] = useState(task ? task.endDate : ' ');
+    const [priority, setPriority] = useState(task ? task.priority : 100);
+    const [category, setCategory] = useState(task ? task.category.idCategory : '');
+    
     const newTask = {
         title: title,
         description: description,
@@ -38,8 +43,8 @@ function CreateTask({setShowModal}) {
         endDate: endDate,
         priority: priority
     }
+
     
-    console.log(priority);
 
   return (
     <>
@@ -67,13 +72,13 @@ function CreateTask({setShowModal}) {
                     value={category}
                     onChange={(e) => {
                         const selectedCategory = e.target.value;
-                        console.log(selectedCategory);
+                        
                         
                         
                         setCategory(selectedCategory);
                     }}
                     >
-                     <option value="" disabled  >Select a Category</option>
+                     <option value="" disabled>Select a Category</option>
                 {categories.map((category) => (
                     
                     <option value={category.idCategory}>
@@ -145,7 +150,7 @@ function CreateTask({setShowModal}) {
             </div>
 
             <div className="buttons">
-               <button className="btns_task" id="task_save" onClick={() => createTask(newTask, category)}>Save</button>
+               <button className="btns_task" id="task_save" onClick={() => task ? updateTask(task.id, category, newTask) :  createTask(newTask, category)}>Save</button>
                <button className="btns_task" id="task_cancel" onClick={() => setShowModal(false)}>Cancel</button>
             </div>
          </div>

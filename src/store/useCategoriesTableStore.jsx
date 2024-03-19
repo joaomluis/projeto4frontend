@@ -20,6 +20,8 @@ const useCategoriesTableStore = create((set, get) => {
 
       if (response.ok) {
         const categories = await response.json();
+
+        
         
         set(() => ({ data: categories }));
         

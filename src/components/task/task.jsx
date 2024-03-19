@@ -3,8 +3,17 @@ import './task.css';
 import { useState } from 'react';
 import SeeTaskModal from './seeTaskModal';
 import useTasksStore from '../../store/useTasksStore';
+import CreateTask from './createTask';
 
-const Task = ({ task, user }) => {
+const Task = ({ task }) => {
+ 
+
+  const [showUpdateModal, setUpdateShowModal] = useState(false);
+    const showUpdateTaskModal = () => {
+        
+      setUpdateShowModal(true);
+    
+      };
 
 
     let backgroundColorTask;
@@ -44,14 +53,15 @@ const Task = ({ task, user }) => {
       <div className="task_title text-overflow-task">{task.title}</div>
       <div className="task_category text-overflow-task_category">{task.category.title}</div>
        
-        <button className="task_btn" style={{ color: 'black' }}>
+        <button className="task_btn" style={{ color: 'black' }} onClick={() => showUpdateTaskModal()}>
           &#9998; {/* botão para editar a task */}
         </button>
 
         <button className="delete_btn" style={{ color: 'black' }} onClick={() => updateTaskActiveState(task.id)}>
         &#128465; {/* botão para apagar a task */}
         </button>
-        {showModal && <SeeTaskModal setShowModal={setShowModal} task={task}/>}
+        {showModal && <SeeTaskModal setShowModal={setShowModal} task={task}/>}  
+        {showUpdateModal && <CreateTask setShowModal={setUpdateShowModal} task={task} />}
     </div>
   );
 };

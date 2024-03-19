@@ -120,6 +120,7 @@ function NewUser({setShowNewUser, user}) {
             value={updateTypeOfUser}
             onChange={(e) => setUpdateTypeOfUser(e.target.value)}
             >
+                <option value="" disabled  >Select a Role</option>
                <option value="developer">Developer</option>
                <option value="scrum_master">Scrum Master</option>
                <option value="product_owner">Product Owner</option>
@@ -129,7 +130,7 @@ function NewUser({setShowNewUser, user}) {
                <button className="btns_task" id="user_save" onClick={async () => {
                     try {
                         if (user) {
-                            console.log('user', user);
+                            
                         await ActiveUsersStore.getState().updateProfile(user.username, newUser);
                         } else {
                         await ActiveUsersStore.getState().createUser(newUser);

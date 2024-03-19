@@ -175,11 +175,12 @@
    margin: 20px auto;
    background-color: var(--white);
    border-radius: 12px;
-   width: 24em;
+
    padding: 10px 1em 1.8em 1em;
    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
    position: fixed;
    left: 40%;
+   top: 0%;
    z-index: 1000;
 }
 

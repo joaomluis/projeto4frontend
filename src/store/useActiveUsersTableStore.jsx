@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import useUserStore from './useUserStore';
-import { toast } from 'react-toastify';
+import { toast, Slide } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import inactiveUsersStore from './useInactiveUsersTableStore';
 
@@ -88,6 +88,7 @@ const useActiveUsersTableStore = create((set, get) => {
             toast.info('User updated successfully', {position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
+            transition: Slide,
             theme: "colored"
             });
 
@@ -126,6 +127,7 @@ const useActiveUsersTableStore = create((set, get) => {
             toast.info('User created successfully', {position: "top-center",
               autoClose: 3000,
               hideProgressBar: true,
+              transition: Slide,
               theme: "colored"
               });
 
@@ -138,6 +140,13 @@ const useActiveUsersTableStore = create((set, get) => {
             const errorMessage = await response.text(); 
             
             console.error("Failed to create user:", errorMessage);
+
+            toast.error(errorMessage, {position: "top-center",
+              autoClose: 4000,
+              hideProgressBar: true,
+              transition: Slide,
+              theme: "colored"
+              })
 
             return Promise.reject(new Error(errorMessage));
 

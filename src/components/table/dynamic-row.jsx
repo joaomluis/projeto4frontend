@@ -73,7 +73,7 @@ function DynamicRow({ item, excludeKeys, displayOrder}) {
       <tr>
         {displayOrder.filter(key => !excludeKeys.includes(key)).map(key => {
 
-        
+          
           
           if (key === 'author') {
             

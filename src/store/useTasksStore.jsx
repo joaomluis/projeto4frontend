@@ -29,6 +29,7 @@ const useTasksStore = create((set) => {
               const tasks = await response.json();
               
                 set(() => ({ activeTasksdata: tasks }));
+                
 
            } else {
               console.error("Failed to fetch tasks");
@@ -120,6 +121,37 @@ const useTasksStore = create((set) => {
       
      }
 
+     const updateTask = async (taskId, idCategory, taskToUpdate) => {
+
+      const token = useUserStore.getState().user.token;
+      
+      try {
+         const response = await fetch("http://localhost:8080/project_backend/rest/tasks/updateTask", {
+         method: "PUT",
+         headers: {
+            Accept: "*/*",
+            "Content-Type": "application/json",
+            token: token,
+            categoryId: idCategory,
+            taskId: taskId
+            
+         },
+         body: JSON.stringify(taskToUpdate)
+   
+      });
+      if (response.ok) {
+         alert("task is updated successfully :)");
+   
+      } else {
+         const errorMessage = await response.text(); 
+         alert(errorMessage);
+      }
+      } catch (error) {
+         console.error("Error updating task:", error);
+      }
+   
+   }
+
      const updateTaskActiveState = async (taskId) => {
         console.log(taskId);
 
@@ -141,9 +173,10 @@ const useTasksStore = create((set) => {
       
             if (response.ok) {
             
-                toast.info("Task active state updated successfully", {position: "top-center",
+                toast.info("Task state updated successfully", {position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
+                transition: Slide,
                 theme: "colored"
                 });
 
@@ -258,6 +291,7 @@ const useTasksStore = create((set) => {
         deleteTaskPerma,
         createTask,
         updateTaskActiveState,
+        updateTask,
         headers: ['Title', 'Description', 'Initial Date', 'End Date', 'Author', 'Task Edition'],
         tableTitle: 'Inactive Tasks',
         excludeKeys: ['category'],

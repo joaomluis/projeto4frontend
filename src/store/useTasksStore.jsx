@@ -202,6 +202,49 @@ const useTasksStore = create((set) => {
 
      }
 
+     const getFilteredTasks = async (selectedUsername, selectedCategoryId) =>{
+      let url = `http://localhost:8080/project_backend/rest/tasks/getFilterTasks`;
+      const token = useUserStore.getState().user.token;
+      
+      
+      if (selectedUsername) {
+         url += `?username=${selectedUsername}`;
+      }
+      
+      if (selectedCategoryId) {
+         if (selectedUsername) {
+            url += `&category=${selectedCategoryId}`;
+         } else {
+            url += `?category=${selectedCategoryId}`;
+         }
+      }
+   
+      try {
+          const response = await fetch(url, {
+              method: 'GET',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'token': token
+              }
+          });
+   
+          if (response.ok) {
+            const filteredTasks = await response.json();
+            console.log(filteredTasks);
+            
+            set(() => ({ activeTasksdata: filteredTasks}));
+
+          } else {
+            return null;
+          }
+
+   
+      } catch (error) {
+          console.error('Fetch Error:', error);
+          return null;
+      }
+   }
+
      
     // SEPARADOR CONTEUDO DA TABELA COM AS INACTIVE TASKS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -278,9 +321,8 @@ const useTasksStore = create((set) => {
     
     
       getInactiveTasks();
+      
 
-
-     
 
      return {
         activeTasksdata: [],
@@ -292,6 +334,7 @@ const useTasksStore = create((set) => {
         createTask,
         updateTaskActiveState,
         updateTask,
+        getFilteredTasks,
         headers: ['Title', 'Description', 'Initial Date', 'End Date', 'Author', 'Task Edition'],
         tableTitle: 'Inactive Tasks',
         excludeKeys: ['category'],

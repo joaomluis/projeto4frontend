@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import CategoriesStore from '../../store/useCategoriesTableStore';
 import ActiveUsersStore from '../../store/useActiveUsersTableStore';
+import useTasksStore from '../../store/useTasksStore';
 
 function FiltersForTasks() {
  
@@ -9,12 +11,24 @@ function FiltersForTasks() {
     const categories = CategoriesStore(state => state.data);
     const users = ActiveUsersStore(state => state.data);
 
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [selectedUser, setSelectedUser] = useState("");
+
+    const filterTasks = useTasksStore(state => state.getFilteredTasks);
+    const activeTasks = useTasksStore(state => state.getActiveTasks);
+
+    const resetFilters = () => {
+      setSelectedUser('');
+      setSelectedCategory(''); 
+    }
+
+
   return (
     <>
     <div className="filter">
                <div className="searchFields">
-               <select id="category" onChange={(e) => console.log(e.target.value)}>
-                   <option value="" disabled selected>Filter by Category</option>
+               <select id="category" onChange={(e) => setSelectedCategory(e.target.value)}>
+                   <option value={selectedCategory} disabled selected>Filter by Category</option>
                    {categories.map((category) => (
                     
                     <option value={category.idCategory}>
@@ -25,8 +39,8 @@ function FiltersForTasks() {
                 
                   
                </select>
-               <select id="users">
-                   <option value="" disabled selected>Filter by Users</option>
+               <select id="users" onChange={(e) => setSelectedUser(e.target.value)}>
+                   <option value={selectedUser} disabled selected>Filter by Users</option>
                      {users.map((user) => (
                       
                       <option value={user.id}>
@@ -35,8 +49,17 @@ function FiltersForTasks() {
                     ))}
                    
                </select>
-               <div className="search_icon"> <p className="search-icon"><FontAwesomeIcon icon={faSearch} /></p></div>
-               <div className="reset_search_icon"> <p className="reset-filter-icon">&#10006;</p></div>
+               <div className="search_icon"> <p className="search-icon" onClick={() => {
+                  filterTasks(selectedUser, selectedCategory);
+                  }}>
+                  <FontAwesomeIcon icon={faSearch} /></p></div>
+
+               <div className="reset_search_icon"> <p className="reset-filter-icon" onClick={() => {
+                 activeTasks();
+                 setSelectedUser('');
+                 setSelectedCategory('')
+                 }}>
+                  &#10006;</p></div>
             </div>
            </div>
     

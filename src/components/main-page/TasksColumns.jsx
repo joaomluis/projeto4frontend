@@ -4,6 +4,7 @@ import useTasksStore from '../../store/useTasksStore';
 import Task from '../task/task';
 import CreateTask from '../task/createTask';
 import { useState } from 'react';
+import Portal from '../portal/portal';
 
 function TaskColumns({tasks}) {
 
@@ -20,7 +21,7 @@ function TaskColumns({tasks}) {
          
          <section id="scrum_section">
 
-            {showModal && <CreateTask setShowModal={setShowModal} />}
+            {showModal && <Portal><CreateTask setShowModal={setShowModal} /></Portal> }
             <div className="column" 
             id="column1"
             onDragOver={(event) => {
@@ -46,7 +47,7 @@ function TaskColumns({tasks}) {
            }}
            onDrop={(event) => {
                const taskId = event.dataTransfer.getData('text/plain');
-               // Add logic to move the task with id `taskId` to this column
+               
                useTasksStore.getState().updateTaskState(taskId, 'doing');
            }}>
                <div className="title">Doing</div>

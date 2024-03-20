@@ -4,6 +4,7 @@ import { useState } from 'react';
 import SeeTaskModal from './seeTaskModal';
 import useTasksStore from '../../store/useTasksStore';
 import CreateTask from './createTask';
+import Portal from '../portal/portal';
 
 const Task = ({ task }) => {
  
@@ -60,8 +61,8 @@ const Task = ({ task }) => {
         <button className="delete_btn" style={{ color: 'black' }} onClick={() => updateTaskActiveState(task.id)}>
         &#128465; {/* botão para apagar a task */}
         </button>
-        {showModal && <SeeTaskModal setShowModal={setShowModal} task={task}/>}  
-        {showUpdateModal && <CreateTask setShowModal={setUpdateShowModal} task={task} />}
+        {showModal && <Portal> <SeeTaskModal setShowModal={setShowModal} task={task}/> </Portal>}  
+        {showUpdateModal && <Portal> <CreateTask setShowModal={setUpdateShowModal} task={task} /> </Portal>}
     </div>
   );
 };

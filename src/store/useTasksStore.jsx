@@ -245,6 +245,48 @@ const useTasksStore = create((set) => {
       }
    }
 
+   const deleteTaskByUser = async (username) => {
+
+      let url = `http://localhost:8080/project_backend/rest/tasks/deleteTasksByUsername/${username}`;
+
+      const token = useUserStore.getState().user.token;
+
+      try {
+          const response = await fetch(url, {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'token': token
+              }
+          });
+   
+          if (response.ok) {
+            toast.info('Tasks deleted successfully', {position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            transition: Slide,
+            theme: "colored"
+            });
+            getActiveTasks();
+            getInactiveTasks();
+          } else {
+            const error = await response.text();
+            console.error(error);
+            toast.error(error, {position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            transition: Slide,
+            theme: "colored"
+            });
+          }
+   
+      } catch (error) {
+          console.error('Fetch Error:', error);
+      }
+
+   }
+
      
     // SEPARADOR CONTEUDO DA TABELA COM AS INACTIVE TASKS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -300,6 +342,7 @@ const useTasksStore = create((set) => {
           });
           
           getInactiveTasks();
+
           
         } else {
           const error = await response.text();
@@ -334,6 +377,7 @@ const useTasksStore = create((set) => {
         createTask,
         updateTaskActiveState,
         updateTask,
+        deleteTaskByUser,
         getFilteredTasks,
         headers: ['Title', 'Description', 'Initial Date', 'End Date', 'Author', 'Task Edition'],
         tableTitle: 'Inactive Tasks',

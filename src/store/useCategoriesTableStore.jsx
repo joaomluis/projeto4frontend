@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import useUserStore from './useUserStore';
-import { toast } from 'react-toastify';
+import { toast, Slide } from 'react-toastify';
 import { useEffect, useState } from 'react';
 
 const useCategoriesTableStore = create((set, get) => {
@@ -50,6 +50,7 @@ const useCategoriesTableStore = create((set, get) => {
       toast.info('Category deleted successfully', {position: "top-center",
       autoClose: 3000,
       hideProgressBar: true,
+      transition: Slide,
       theme: "colored"
       });
       console.log("Category deleted successfully");
@@ -58,6 +59,13 @@ const useCategoriesTableStore = create((set, get) => {
       
     } else {
       const errorMessage = await response.text();
+
+      toast.error(errorMessage, {position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+      transition: Slide,
+      theme: "colored"
+      });
      
     }
   } catch (error) {

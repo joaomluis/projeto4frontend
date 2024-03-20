@@ -54,7 +54,7 @@ function DynamicRow({ item, excludeKeys, displayOrder}) {
     <button key={`${id}-delete`} className="delete_button" onClick={() => ActiveUsersStore.getState().softDeleteUser(id)}>
       &#128465;
     </button>
-    <button key={`${id}-deleteTasks`} className="delete_button" >
+    <button key={`${id}-deleteTasks`} className="delete_button" onClick={() => useTasksStore.getState().deleteTaskByUser(id)}>
       Delete Tasks
     </button>
     </>

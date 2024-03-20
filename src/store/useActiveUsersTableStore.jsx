@@ -157,18 +157,44 @@ const useActiveUsersTableStore = create((set, get) => {
       }
    }
 
+   const allUsers = async () => {
 
-
-  getActiveUsers();
+    const allUsersRequest = "http://localhost:8080/project_backend/rest/users/all";
   
+    try {
+      const response = await fetch(allUsersRequest, {
+        method: "GET",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+          token: token
+        }
+      });
+
+      if (response.ok) {
+        const allUsers = await response.json();
+        
+        set(() => ({ allUsers: allUsers }));
+
+        
+      }
+    } catch (error) {
+      console.error('Failed to fetch categories', error);
+    }
+   }
+   allUsers();
+
+
 
   return {
     headers: ['Username', 'Email', 'Phone', 'Role', 'User Edition'],
     data: [],
+    allUsers: [],
     tableTitle: 'Active Users',
     excludeKeys: ['idCategory'],
     displayOrder: ['username', 'email', 'phoneNumber', 'typeOfUser'],
     setData: (data) => set(state => ({ data })),
+    setAllUsers: (allUsers) => set(state => ({ allUsers })),
     getActiveUsers,
     softDeleteUser,
     updateProfile,

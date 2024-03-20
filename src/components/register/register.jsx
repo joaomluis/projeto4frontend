@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import './register.css';
+import { toast, Slide } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
+
+  const navigate = useNavigate();
 
   const [registerUsername, setRegisterUsername] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
@@ -40,12 +44,24 @@ function Register() {
       });
 
       if (response.ok) {
-        alert("Account registered successfully!");
+        toast.info("Registred successfully", {position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                transition: Slide,
+                theme: "colored"
+                });
+
+        navigate('/');
 
       
       } else {
         const errorData = await response.text();
-        alert(errorData); //mudar para modal
+        toast.error(errorData, {position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                transition: Slide,
+                theme: "colored"
+                });
       }
     } catch (error) {
       console.error('Error:', error);

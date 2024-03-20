@@ -98,7 +98,6 @@ const useInactiveUsersTableStore = create((set, get) => {
   }};
 
 
-  getInactiveUsers();
   
   
 

@@ -362,8 +362,7 @@ const useTasksStore = create((set) => {
       }};
     
     
-    
-      getInactiveTasks();
+   
       
 
 

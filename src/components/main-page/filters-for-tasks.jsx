@@ -9,7 +9,7 @@ function FiltersForTasks() {
  
 
     const categories = CategoriesStore(state => state.data);
-    const users = ActiveUsersStore(state => state.data);
+    const users = ActiveUsersStore(state => state.allUsers);
 
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedUser, setSelectedUser] = useState("");
@@ -56,8 +56,7 @@ function FiltersForTasks() {
 
                <div className="reset_search_icon"> <p className="reset-filter-icon" onClick={() => {
                  activeTasks();
-                 setSelectedUser('');
-                 setSelectedCategory('')
+                 
                  }}>
                   &#10006;</p></div>
             </div>

@@ -11,9 +11,13 @@ function TaskColumns({tasks}) {
    const [showModal, setShowModal] = useState(false);
     const showCreateTaskModal = () => {
         
-        setShowModal(true);
+        setShowModal(!showModal);
     
       };
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleOpen = () => setIsOpen(!isOpen);
 
   return (
     <>   
@@ -21,7 +25,7 @@ function TaskColumns({tasks}) {
          
          <section id="scrum_section">
 
-            {showModal && <Portal><CreateTask setShowModal={setShowModal} /></Portal> }
+            {showModal && <Portal><CreateTask setShowModal={setShowModal}  /></Portal> }
             <div className="column" 
             id="column1"
             onDragOver={(event) => {

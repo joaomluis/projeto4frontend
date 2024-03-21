@@ -72,7 +72,7 @@ const useTasksStore = create((set) => {
         }
      }
 
-     const createTask = async (task, categoryId) => {
+     const createTask = async (task, categoryId, setShowModal) => {
 
         const token = useUserStore.getState().user.token;
         let createTaskRequest = "http://localhost:8080/project_backend/rest/tasks/createTask";
@@ -101,6 +101,7 @@ const useTasksStore = create((set) => {
                 });
 
                 getActiveTasks();
+                setShowModal();
                
             } else {
                const error = await response.text();
@@ -121,7 +122,7 @@ const useTasksStore = create((set) => {
       
      }
 
-     const updateTask = async (taskId, idCategory, taskToUpdate) => {
+     const updateTask = async (taskId, idCategory, taskToUpdate, setShowModal) => {
 
       const token = useUserStore.getState().user.token;
       
@@ -140,11 +141,24 @@ const useTasksStore = create((set) => {
    
       });
       if (response.ok) {
-         alert("task is updated successfully :)");
+         toast.info("Task updated successfully", {position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                transition: Slide,
+                theme: "colored"
+                });
+         setShowModal();
+         getActiveTasks();
    
       } else {
          const errorMessage = await response.text(); 
-         alert(errorMessage);
+         toast.error(errorMessage, {position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                transition: Slide,
+                theme: "colored"
+                });
       }
       } catch (error) {
          console.error("Error updating task:", error);

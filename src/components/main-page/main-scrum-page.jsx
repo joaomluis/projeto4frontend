@@ -15,6 +15,8 @@ function MainScrumPage() {
     const isLoggedIn = useUserStore(state => state.isLoggedIn);
     const getCategories = useCategoriesTableStore(state => state.fetchCategories);
     const getAllUsers = useActiveUsersTableStore(state => state.getAllUsers);
+
+    
     
 
 

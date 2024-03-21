@@ -44,11 +44,11 @@ function DynamicRow({ item, excludeKeys, displayOrder}) {
     <button key={`${id}-edit`} className="edit_button" onClick={() => InactiveUsersStore.getState().restoreUser(id)}>
       &#8634;
     </button>,
-    userType === 'product_owner' ? (
+    (userType === 'product_owner' && (
       <button key={`${id}-delete`} className="delete_button" onClick={() => InactiveUsersStore.getState().deleteUserPerma(id)}>
         &#128465;
       </button>
-    ) : null
+    ))
   ];
 
   const buttonsActiveUsers = (id) => [

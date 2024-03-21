@@ -54,7 +54,7 @@ function NewUser({setShowNewUser, user}) {
 
         <main className="create">
           
-          <div id="overlay-modal-category"></div>
+          <div id="overlay-modal-category" onClick={() => setShowNewUser(false)}></div>
           <div className="descricaoCategoria">
           <h2 id='create_user_title'>{titleModal}</h2>
 

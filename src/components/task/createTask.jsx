@@ -150,7 +150,7 @@ function CreateTask({setShowModal, task}) {
             </div>
 
             <div className="buttons">
-               <button className="btns_task" id="task_save" onClick={() => task ? updateTask(task.id, category, newTask) :  createTask(newTask, category)}>Save</button>
+               <button className="btns_task" id="task_save" onClick={() => task ? updateTask(task.id, category, newTask, setShowModal) :  createTask(newTask, category, setShowModal)}>Save</button>
                <button className="btns_task" id="task_cancel" onClick={() => setShowModal(false)}>Cancel</button>
             </div>
          </div>

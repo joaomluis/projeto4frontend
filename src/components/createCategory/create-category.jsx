@@ -92,7 +92,7 @@ function CreateCategory({onClose, category}) {
     <>
       <main className="create">
           
-        <div id="overlay-modal-category"></div>
+        <div id="overlay-modal-category" onClick={onClose}></div>
         <div className="descricaoCategoria">
             <button className="modal_exit" id="cancel" onClick={onClose}>&times;</button>
             <h2 id="task_creationTitle"></h2>

@@ -2,9 +2,22 @@ import React, { useEffect, useState } from 'react';
 import useUserStore from '../../store/useUserStore';
 import CategoryRow from './dynamic-row';
 import { Link, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NewUser from '../new-user/new-user.jsx';
 
 function DynamicTable({store}) {
+
+
+
+  const navigate = useNavigate();
+  const isLoggedIn = useUserStore(state => state.isLoggedIn);
+    
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/');
+        }
+    }, [isLoggedIn, navigate]);
     const location = useLocation();
   
 

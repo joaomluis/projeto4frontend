@@ -65,7 +65,7 @@ function App() {
             <Route path="/active-users" element={<DynamicTable store={ActiveUsersList}/>} />
             <Route path="/inactive-tasks" element={<DynamicTable store={useTasksStore}/>} />
             <Route path="/edit-profile" element={<EditProfile/>}/>
-            <Route path="/create-user" element={<NewUser/>}/>
+            
         </Routes>
 
         {isCreateCategoryOpen && <CreateCategory onClose={toggleCreateCategory} />}

@@ -23,7 +23,7 @@ const useUserStore = create(persist((set) => ({
     
     {
         name: 'user-storage',
-        getStorage: () => localStorage,
+        getStorage: () => sessionStorage,
     }
 
 ));

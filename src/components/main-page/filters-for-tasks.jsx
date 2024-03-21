@@ -11,25 +11,32 @@ function FiltersForTasks() {
     const categories = CategoriesStore(state => state.data);
     const users = ActiveUsersStore(state => state.allUsers);
 
-    const [selectedCategory, setSelectedCategory] = useState("");
-    const [selectedUser, setSelectedUser] = useState("");
+    const { selectedCategory, selectedUser, setSelectedCategory, setSelectedUser } = useTasksStore();
 
-    const filterTasks = useTasksStore(state => state.getFilteredTasks);
+    const handleCategoryChange = (event) => {
+      setSelectedCategory(event.target.value);
+    };
+  
+    const handleUserChange = (event) => {
+      setSelectedUser(event.target.value);
+    };
+
     const activeTasks = useTasksStore(state => state.getActiveTasks);
 
-    
-
     const resetFilters = () => {
-      setSelectedUser('');
-      setSelectedCategory(''); 
+      setSelectedCategory("");
+      setSelectedUser("");
+      activeTasks();
     }
+
+    
 
 
   return (
     <>
     <div className="filter">
                <div className="searchFields">
-               <select id="category" onChange={(e) => setSelectedCategory(e.target.value)}>
+               <select id="category" onChange={handleCategoryChange}>
                    <option value={selectedCategory} disabled selected>Filter by Category</option>
                    {categories.map((category) => (
                     
@@ -41,7 +48,7 @@ function FiltersForTasks() {
                 
                   
                </select>
-               <select id="users" onChange={(e) => setSelectedUser(e.target.value)}>
+               <select id="users" onChange={handleUserChange}>
                    <option value={selectedUser} disabled selected>Filter by Users</option>
                      {users.map((user) => (
                       
@@ -52,12 +59,12 @@ function FiltersForTasks() {
                    
                </select>
                <div className="search_icon"> <p className="search-icon" onClick={() => {
-                  filterTasks(selectedUser, selectedCategory);
+                  activeTasks(selectedUser, selectedCategory);
                   }}>
                   <FontAwesomeIcon icon={faSearch} /></p></div>
 
                <div className="reset_search_icon"> <p className="reset-filter-icon" onClick={() => {
-                 activeTasks();
+                 resetFilters();
                  
                  }}>
                   &#10006;</p></div>

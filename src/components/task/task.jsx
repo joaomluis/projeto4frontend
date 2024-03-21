@@ -14,6 +14,8 @@ const Task = ({ task }) => {
   const userType = useUserStore((state) => state.userType);
   const username = useUserStore((state) => state.username);
  
+  const { selectedCategory, selectedUser } = useTasksStore();
+  
 
   const [showUpdateModal, setUpdateShowModal] = useState(false);
     const showUpdateTaskModal = () => {
@@ -68,7 +70,7 @@ const Task = ({ task }) => {
     )}
 
         { (userType === 'scrum_master' || userType === 'product_owner') && (
-        <button className="delete_btn" style={{ color: 'black' }} onClick={() => updateTaskActiveState(task.id)}>
+        <button className="delete_btn" style={{ color: 'black' }} onClick={() => updateTaskActiveState(task.id, selectedUser, selectedCategory)}>
         &#128465; {/* botão para apagar a task */}
         </button>
         )}

@@ -6,10 +6,22 @@ import { toast, Slide } from 'react-toastify';
 
 const useTasksStore = create((set) => {
 
-   
-
+   const initialState = {
+      
+      selectedCategory: "",
+      selectedUser: "",
+      setSelectedCategory: (selectedCategory) => set({ selectedCategory }),
+      setSelectedUser: (selectedUser) => set({ selectedUser }),
+      reset: () => set({ selectedCategory: '', selectedUser: '' }),
     
-    const getActiveTasks = async () => {
+  };
+
+  set(() => initialState);
+
+  
+  
+    
+    const getActiveTasks22 = async () => {
       const token = useUserStore.getState().token;
 
         let getTasksRequest = "http://localhost:8080/project_backend/rest/tasks/getActiveTasks";
@@ -40,10 +52,57 @@ const useTasksStore = create((set) => {
         }
      }
 
-     getActiveTasks();
+   
+
+     const getActiveTasks = async (selectedUsername, selectedCategoryId) => {
+      let url = `http://localhost:8080/project_backend/rest/tasks/all`;
+
+      if (selectedUsername) {
+         url += `?username=${selectedUsername}`;
+      }
+      
+      if (selectedCategoryId) {
+         if (selectedUsername) {
+            url += `&category=${selectedCategoryId}`;
+         } else {
+            url += `?category=${selectedCategoryId}`;
+         }
+      }
+
+      const token = useUserStore.getState().token;
+
+      try {
+            const response = await fetch(url, {
+                  method: 'GET',
+                  headers: {
+                        'Content-Type': 'application/json',
+                        'token': token
+                  }
+            });
+
+            if (response.ok) {
+                  const filteredTasks = await response.json();
+                  set(() => ({ activeTasksdata: filteredTasks }));
+
+            } else {
+
+                  return null;
+            }
+
+      } catch (error) {
+            console.error('Fetch Error:', error);
+            return null;
+      }
+}
+
+getActiveTasks();
 
 
-     const updateTaskState = async (taskId, state) => { 
+     const updateTaskState = async (taskId, state, selectedUsername, selectedCategory) => { 
+
+      console.log("dentro do updateTaskActiveState");
+      console.log(selectedCategory);
+      console.log(selectedUsername);
 
         const token = useUserStore.getState().user.token;
 
@@ -62,7 +121,8 @@ const useTasksStore = create((set) => {
      
            if (response.ok) {
               console.log("Task state updated");
-              getActiveTasks();
+              
+              getActiveTasks(selectedUsername, selectedCategory);
            } else {
               console.error("Failed to update task state");
            }
@@ -72,7 +132,7 @@ const useTasksStore = create((set) => {
         }
      }
 
-     const createTask = async (task, categoryId, setShowModal) => {
+     const createTask = async (task, categoryId, setShowModal, selectedUser, selectedCategory) => {
 
         const token = useUserStore.getState().user.token;
         let createTaskRequest = "http://localhost:8080/project_backend/rest/tasks/createTask";
@@ -100,7 +160,7 @@ const useTasksStore = create((set) => {
                 theme: "colored"
                 });
 
-                getActiveTasks();
+                getActiveTasks(selectedUser, selectedCategory);
                 setShowModal();
                
             } else {
@@ -122,7 +182,7 @@ const useTasksStore = create((set) => {
       
      }
 
-     const updateTask = async (taskId, idCategory, taskToUpdate, setShowModal) => {
+     const updateTask = async (taskId, idCategory, taskToUpdate, setShowModal, selectedUser, selectedCategory) => {
 
       const token = useUserStore.getState().user.token;
       
@@ -148,7 +208,7 @@ const useTasksStore = create((set) => {
                 theme: "colored"
                 });
          setShowModal();
-         getActiveTasks();
+         getActiveTasks(selectedUser, selectedCategory);
    
       } else {
          const errorMessage = await response.text(); 
@@ -166,8 +226,7 @@ const useTasksStore = create((set) => {
    
    }
 
-     const updateTaskActiveState = async (taskId) => {
-        console.log(taskId);
+     const updateTaskActiveState = async (taskId, selectedUsername, selectedCategory) => {
 
         const token = useUserStore.getState().user.token;
         let setTaskStatusRequest = `http://localhost:8080/project_backend/rest/tasks/${taskId}/softDelete`;
@@ -194,7 +253,7 @@ const useTasksStore = create((set) => {
                 theme: "colored"
                 });
 
-                getActiveTasks();
+                getActiveTasks(selectedUsername, selectedCategory);
                 getInactiveTasks();
                
             } else {
@@ -216,48 +275,7 @@ const useTasksStore = create((set) => {
 
      }
 
-     const getFilteredTasks = async (selectedUsername, selectedCategoryId) =>{
-      let url = `http://localhost:8080/project_backend/rest/tasks/getFilterTasks`;
-      const token = useUserStore.getState().user.token;
-      
-      
-      if (selectedUsername) {
-         url += `?username=${selectedUsername}`;
-      }
-      
-      if (selectedCategoryId) {
-         if (selectedUsername) {
-            url += `&category=${selectedCategoryId}`;
-         } else {
-            url += `?category=${selectedCategoryId}`;
-         }
-      }
    
-      try {
-          const response = await fetch(url, {
-              method: 'GET',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'token': token
-              }
-          });
-   
-          if (response.ok) {
-            const filteredTasks = await response.json();
-            console.log(filteredTasks);
-            
-            set(() => ({ activeTasksdata: filteredTasks}));
-
-          } else {
-            return null;
-          }
-
-   
-      } catch (error) {
-          console.error('Fetch Error:', error);
-          return null;
-      }
-   }
 
    const deleteTaskByUser = async (username) => {
 
@@ -375,12 +393,12 @@ getInactiveTasks();
         
       }};
     
-    
-   
       
 
 
      return {
+      
+      ...initialState,
         activeTasksdata: [],
         data: [],
         updateTaskState,
@@ -391,16 +409,18 @@ getInactiveTasks();
         updateTaskActiveState,
         updateTask,
         deleteTaskByUser,
-        getFilteredTasks,
         headers: ['Title', 'Description', 'Initial Date', 'End Date', 'Author', 'Task Edition'],
         tableTitle: 'Inactive Tasks',
         excludeKeys: ['category'],
         displayOrder: ['title', 'description', 'initialDate', 'endDate', 'author'],
         setData: (data) => set(state => ({ data })),
+        selectedCategory: "",
+        selectedUser: "",
+        setSelectedCategory: (selectedCategory) => set(state => ({selectedCategory})),
+        setSelectedUser: (selectedUser) => set(state => ({selectedUser})),
 
         
       };
-
 });
 
 

@@ -5,7 +5,6 @@ import Task from '../task/task';
 import CreateTask from '../task/createTask';
 import { useState } from 'react';
 import Portal from '../portal/portal';
-
 function TaskColumns({tasks}) {
 
    const [showModal, setShowModal] = useState(false);
@@ -18,6 +17,8 @@ function TaskColumns({tasks}) {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleOpen = () => setIsOpen(!isOpen);
+
+    const { selectedCategory, selectedUser } = useTasksStore(); 
 
   return (
     <>   
@@ -33,7 +34,7 @@ function TaskColumns({tasks}) {
            }}
            onDrop={(event) => {
                const taskId = event.dataTransfer.getData('text/plain');
-               useTasksStore.getState().updateTaskState(taskId, 'toDo');
+               useTasksStore.getState().updateTaskState(taskId, 'toDo', selectedUser, selectedCategory);
            }}>
                <div className="title">To Do</div>
                <section className="task_list" id="toDo"> 
@@ -52,7 +53,7 @@ function TaskColumns({tasks}) {
            onDrop={(event) => {
                const taskId = event.dataTransfer.getData('text/plain');
                
-               useTasksStore.getState().updateTaskState(taskId, 'doing');
+               useTasksStore.getState().updateTaskState(taskId, 'doing', selectedUser, selectedCategory);
            }}>
                <div className="title">Doing</div>
                <section className="task_list" id="doing">
@@ -69,7 +70,7 @@ function TaskColumns({tasks}) {
            onDrop={(event) => {
                const taskId = event.dataTransfer.getData('text/plain');
                // Add logic to move the task with id `taskId` to this column
-               useTasksStore.getState().updateTaskState(taskId, 'done');
+               useTasksStore.getState().updateTaskState(taskId, 'done', selectedUser, selectedCategory);
            }}>
                <div className="title">Done</div>
                <section className="task_list" id="done">

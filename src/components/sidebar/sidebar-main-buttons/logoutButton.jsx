@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '../../../store/useUserStore';
+import useTasksStore from '../../../store/useTasksStore';
 
 
 
@@ -10,6 +11,7 @@ function LogoutButton({logoClicked, token}) {
 
     const navigate = useNavigate();
     const setLoggedIn = useUserStore(state => state.setLoggedIn);
+    const { reset } = useTasksStore();
 
     async function logoutUser() {
         try {
@@ -44,6 +46,7 @@ function LogoutButton({logoClicked, token}) {
           localStorage.clear();
           setLoggedIn(false);
           navigate("/");
+          reset();
           
           
         }

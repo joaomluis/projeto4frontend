@@ -6,7 +6,7 @@ import useTasksStore from '../../store/useTasksStore';
 
 function CreateTask({setShowModal, task}) {
    
-   
+   const { selectedCategory, selectedUser } = useTasksStore();
 
     const colorMap = {
         100: '#44ca4d',
@@ -150,7 +150,7 @@ function CreateTask({setShowModal, task}) {
             </div>
 
             <div className="buttons">
-               <button className="btns_task" id="task_save" onClick={() => task ? updateTask(task.id, category, newTask, setShowModal) :  createTask(newTask, category, setShowModal)}>Save</button>
+               <button className="btns_task" id="task_save" onClick={() => task ? updateTask(task.id, category, newTask, setShowModal, selectedUser, selectedCategory) :  createTask(newTask, category, setShowModal, selectedUser, selectedCategory)}>Save</button>
                <button className="btns_task" id="task_cancel" onClick={() => setShowModal(false)}>Cancel</button>
             </div>
          </div>

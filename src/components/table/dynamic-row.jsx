@@ -7,9 +7,12 @@ import useTasksStore from "../../store/useTasksStore";
 import CreateCategory from "../createCategory/create-category";
 import Portal from "../portal/portal";
 import NewUser from "../new-user/new-user";
+import useUserStore from "../../store/useUserStore";
 
 
 function DynamicRow({ item, excludeKeys, displayOrder}) {
+
+  const userType = useUserStore((state) => state.userType);
   
   const location = useLocation();
   const idField = item.idCategory ? 'idCategory' : (item.username ? 'username' : 'id');
@@ -41,9 +44,11 @@ function DynamicRow({ item, excludeKeys, displayOrder}) {
     <button key={`${id}-edit`} className="edit_button" onClick={() => InactiveUsersStore.getState().restoreUser(id)}>
       &#8634;
     </button>,
-    <button key={`${id}-delete`} className="delete_button" onClick={() => InactiveUsersStore.getState().deleteUserPerma(id)}>
-      &#128465;
-    </button>
+    userType === 'product_owner' ? (
+      <button key={`${id}-delete`} className="delete_button" onClick={() => InactiveUsersStore.getState().deleteUserPerma(id)}>
+        &#128465;
+      </button>
+    ) : null
   ];
 
   const buttonsActiveUsers = (id) => [
@@ -94,8 +99,8 @@ function DynamicRow({ item, excludeKeys, displayOrder}) {
           <CreateCategory category={item} onClose={toggleCreateCategory}/>
         </Portal>
         )}
-        {location.pathname === '/active-users' && buttonsActiveUsers(id)}
-        {isEditActiveUserOpen && (
+        {location.pathname === '/active-users' && userType === 'product_owner' && buttonsActiveUsers(id)}
+        {isEditActiveUserOpen &&  (
         <Portal>
           <NewUser user={item} setShowNewUser={toggleEditActiveUser}/>
         </Portal>

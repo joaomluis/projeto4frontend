@@ -5,9 +5,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import NewUser from '../new-user/new-user.jsx';
 
+
 function DynamicTable({store}) {
 
-
+  const userType = useUserStore((state) => state.userType);
 
   const navigate = useNavigate();
   const isLoggedIn = useUserStore(state => state.isLoggedIn);
@@ -39,7 +40,7 @@ function DynamicTable({store}) {
     <main className="taskMain">
             
             <h1 id="title-category">{tableTitle}</h1>
-            {location.pathname === '/active-users' && (
+            {location.pathname === '/active-users' && userType === 'product_owner' && (
                 <button id="btn_newUser"onClick={() => setShowNewUser(true)}>
                 +New User
               </button>

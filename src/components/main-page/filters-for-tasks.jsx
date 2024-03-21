@@ -17,6 +17,8 @@ function FiltersForTasks() {
     const filterTasks = useTasksStore(state => state.getFilteredTasks);
     const activeTasks = useTasksStore(state => state.getActiveTasks);
 
+    
+
     const resetFilters = () => {
       setSelectedUser('');
       setSelectedCategory(''); 

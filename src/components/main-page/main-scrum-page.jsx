@@ -4,6 +4,8 @@ import FiltersForTasks from "./filters-for-tasks";
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '../../store/useUserStore';
+import useCategoriesTableStore from '../../store/useCategoriesTableStore';
+import useActiveUsersTableStore from '../../store/useActiveUsersTableStore';
 
 function MainScrumPage() {
 
@@ -11,13 +13,17 @@ function MainScrumPage() {
 
     const navigate = useNavigate();
     const isLoggedIn = useUserStore(state => state.isLoggedIn);
+    const getCategories = useCategoriesTableStore(state => state.fetchCategories);
+    const getAllUsers = useActiveUsersTableStore(state => state.getAllUsers);
     
 
 
     useEffect(() => {
         if (!isLoggedIn) {
             navigate('/');
-        }
+        };
+        getCategories();
+        getAllUsers();
     }, [isLoggedIn, navigate]);
 
     

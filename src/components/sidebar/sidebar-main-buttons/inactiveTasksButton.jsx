@@ -3,10 +3,15 @@ import { faClipboardList } from '@fortawesome/free-solid-svg-icons';
 import './sidebar-main-buttons.css';
 import { Link } from 'react-router-dom';
 import useTasksStore from '../../../store/useTasksStore';
+import { useEffect } from 'react';
 
-function InactiveTasksButton({logoClicked, token}) {
+function InactiveTasksButton({logoClicked}) {
 
     const getInactiveTasks = useTasksStore((state) => state.getInactiveTasks);
+
+    useEffect(() => {
+        getInactiveTasks();
+    }, []);
 
     return (
         <div className="inactive-tasks-button">

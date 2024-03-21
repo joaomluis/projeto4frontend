@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 const useCategoriesTableStore = create((set, get) => {
   const fetchCategories = async () => {
     const categoriesRequest = "http://localhost:8080/project_backend/rest/categories/getAllCategories";
-    const token = useUserStore.getState().user.token;
+    const token = useUserStore.getState().token;
 
     try {
       const response = await fetch(categoriesRequest, {
@@ -74,13 +74,7 @@ const useCategoriesTableStore = create((set, get) => {
   }};
 
 
-
-
-  fetchCategories();
-
-  const openModal = async (id) => {
-  };
-
+  
 
   return {
     headers: ['Title', 'Description', 'Author', 'Category Edition'],

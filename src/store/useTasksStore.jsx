@@ -10,7 +10,7 @@ const useTasksStore = create((set) => {
 
     
     const getActiveTasks = async () => {
-        const token = useUserStore.getState().user.token;
+      const token = useUserStore.getState().token;
 
         let getTasksRequest = "http://localhost:8080/project_backend/rest/tasks/getActiveTasks";
      
@@ -341,8 +341,8 @@ const useTasksStore = create((set) => {
           theme: "colored"
           });
           
-          getInactiveTasks();
-
+          
+getInactiveTasks();
           
         } else {
           const error = await response.text();

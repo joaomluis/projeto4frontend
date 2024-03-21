@@ -4,7 +4,7 @@ import '../../main.css';
 import { Link } from 'react-router-dom';
 import useUserStore from '../../store/useUserStore';
 import { useNavigate } from 'react-router-dom';
-
+import useTasksStore from '../../store/useTasksStore';
 
 
 function Login() {
@@ -14,7 +14,7 @@ function Login() {
    const setUser = useUserStore(state => state.setUser);
    const navigate = useNavigate();
 
-
+   const getActiveTasks = useTasksStore(state => state.getActiveTasks);
    
    const handleSubmit = async (event) => {
       event.preventDefault();
@@ -37,7 +37,8 @@ function Login() {
             const data = await response.json();
 
             setUser(data);
-
+            getActiveTasks();
+            
             navigate('/scrum');
 
          } else if (response.status === 404) {

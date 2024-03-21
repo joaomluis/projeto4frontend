@@ -5,6 +5,7 @@ import { faUsersLine, faUserCheck, faUsersSlash } from '@fortawesome/free-solid-
 import { Link } from 'react-router-dom';
 import useInactiveUsers from '../../../store/useInactiveUsersTableStore';
 import useActiveUsers from '../../../store/useActiveUsersTableStore';
+import { useEffect } from 'react';
 
 
 
@@ -16,6 +17,11 @@ function UserCollapsingButton({logoClicked, userType}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => setIsOpen(!isOpen);
+
+  useEffect(() => {
+    getActiveUsers()
+    getInactiveUsers()
+}, []);
 
     return (
         <div className="users-collapse-button">

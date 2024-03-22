@@ -11,7 +11,7 @@ import Sidebar from './components/sidebar/sidebar.jsx';
 import useUserStore from './store/useUserStore.jsx';
 import MainPageScrum from './components/main-page/main-scrum-page.jsx';
 import CreateCategory from './components/createCategory/create-category.jsx';
-import CategoriesTable from './components/categories-page/categories-table.jsx';
+import CategoriesTable from './components/categories-page/categories-table.css';
 import EditProfile from './components/edit-profile/edit-profile.jsx';
 import DynamicTable from './components/table/dynamic-table.jsx';
 import useCategoriesTableStore from './store/useCategoriesTableStore.jsx';

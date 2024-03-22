@@ -100,10 +100,6 @@ getActiveTasks();
 
      const updateTaskState = async (taskId, state, selectedUsername, selectedCategory) => { 
 
-      console.log("dentro do updateTaskActiveState");
-      console.log(selectedCategory);
-      console.log(selectedUsername);
-
         const token = useUserStore.getState().user.token;
 
         let updateTaskRequest = `http://localhost:8080/project_backend/rest/tasks/${taskId}/status`;
@@ -373,8 +369,6 @@ getActiveTasks();
           theme: "colored"
           });
           
-          
-getInactiveTasks();
           
         } else {
           const error = await response.text();

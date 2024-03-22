@@ -8,6 +8,8 @@ import CreateCategory from "../createCategory/create-category";
 import Portal from "../portal/portal";
 import NewUser from "../new-user/new-user";
 import useUserStore from "../../store/useUserStore";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashCan, faRotateLeft, faUserSlash, faCalendarXmark } from '@fortawesome/free-solid-svg-icons';
 
 
 function DynamicRow({ item, excludeKeys, displayOrder}) {
@@ -32,45 +34,45 @@ function DynamicRow({ item, excludeKeys, displayOrder}) {
 
 
   const buttonsCategories = (id) => [
-    <button key={`${id}-edit`} className="edit_button" onClick={() => setIsCreateCategoryOpen(true)} >
-      &#128214;
+    <button key={`${id}-edit`} className="edit_button" title="Edit category" onClick={() => setIsCreateCategoryOpen(true)} >
+      <FontAwesomeIcon icon={faEdit} />
     </button>,
-    <button key={`${id}-delete`} className="delete_button" onClick={() => CategoriesStore.getState().deleteCategory(id)} >
-      &#128465;
+    <button key={`${id}-delete`} className="delete_button" title="Delete category" onClick={() => CategoriesStore.getState().deleteCategory(id)} >
+      <FontAwesomeIcon icon={faTrashCan} />
     </button>
   ];
 
   const buttonsInactiveUsers = (id) => [
-    <button key={`${id}-edit`} className="edit_button" onClick={() => InactiveUsersStore.getState().restoreUser(id)}>
-      &#8634;
+    <button key={`${id}-edit`} className="edit_button" title="Reactivate user" onClick={() => InactiveUsersStore.getState().restoreUser(id)}>
+      <FontAwesomeIcon icon={faRotateLeft} />
     </button>,
     (userType === 'product_owner' && (
-      <button key={`${id}-delete`} className="delete_button" onClick={() => InactiveUsersStore.getState().deleteUserPerma(id)}>
-        &#128465;
+      <button key={`${id}-delete`} className="delete_button" title="Delete user permanently" onClick={() => InactiveUsersStore.getState().deleteUserPerma(id)}>
+        <FontAwesomeIcon icon={faTrashCan} />
       </button>
     ))
   ];
 
   const buttonsActiveUsers = (id) => [
     <>
-    <button key={`${id}-edit`} className="edit_button" onClick={() => setIsEditActiveUserOpen(true)}>
-      &#128214;
+    <button key={`${id}-edit`} className="edit_button" title="Edit User" onClick={() => setIsEditActiveUserOpen(true)}>
+    <FontAwesomeIcon icon={faEdit} />
     </button>
-    <button key={`${id}-delete`} className="delete_button" onClick={() => ActiveUsersStore.getState().softDeleteUser(id)}>
-      &#128465;
+    <button key={`${id}-delete`} className="delete_button" title="Deactivate user" onClick={() => ActiveUsersStore.getState().softDeleteUser(id)}>
+    <FontAwesomeIcon icon={faUserSlash} />
     </button>
-    <button key={`${id}-deleteTasks`} className="delete_button" onClick={() => useTasksStore.getState().deleteTaskByUser(id)}>
-      Delete Tasks
+    <button key={`${id}-deleteTasks`} className="delete_button" title="Delete user tasks" onClick={() => useTasksStore.getState().deleteTaskByUser(id)}>
+    <FontAwesomeIcon icon={faCalendarXmark} />
     </button>
     </>
   ];
 
   const buttonsInactiveTasks = (id) => [
-    <button key={`${id}-edit`} className="edit_button" onClick={() => useTasksStore.getState().updateTaskActiveState(id)}>
-      &#8634;
+    <button key={`${id}-edit`} className="edit_button" title="Restore task" onClick={() => useTasksStore.getState().updateTaskActiveState(id)}>
+      <FontAwesomeIcon icon={faRotateLeft} />
     </button>,
-    <button key={`${id}-delete`} className="delete_button" onClick={() => useTasksStore.getState().deleteTaskPerma(id)}>
-      &#128465;
+    <button key={`${id}-delete`} className="delete_button" title="Delete task permanently" onClick={() => useTasksStore.getState().deleteTaskPerma(id)}>
+      <FontAwesomeIcon icon={faTrashCan} />
     </button>
   ];
   

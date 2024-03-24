@@ -1,7 +1,7 @@
 import './create-category.css';
 import useUserStore from '../../store/useUserStore';
 import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CategoryStore from '../../store/useCategoriesTableStore';
 
@@ -66,6 +66,7 @@ function CreateCategory({onClose, category}) {
               toast.info(message, {position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
+                transition: Slide,
                 theme: "colored"
                 });
                
@@ -77,8 +78,12 @@ function CreateCategory({onClose, category}) {
                 
             } else {
               const errorMessage = await response.text(); 
-              setError(errorMessage);
-              console.error("Failed to create category:", errorMessage);
+              toast.error(errorMessage, {position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                transition: Slide,
+                theme: "colored"
+                });
   
               }
         } catch (error) {

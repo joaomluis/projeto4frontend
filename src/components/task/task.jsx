@@ -50,6 +50,7 @@ const Task = ({ task }) => {
 
   return (
     <div id={task.id}
+    data-testid={`task-${task.id}`}
     item={task}
     className="task" 
     draggable="true" 

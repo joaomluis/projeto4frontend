@@ -50,7 +50,7 @@ function CreateTask({setShowModal, task}) {
     <>
     <main className="taskMain">
     <div id="overlay-modal-category" onClick={() => setShowModal(false)}></div>
-         <div className="createTask">
+         <div className="createTask" data-testid="create-task">
             
             <h2 id="task_creationTitle"></h2>
             
@@ -140,6 +140,7 @@ function CreateTask({setShowModal, task}) {
                   <input type="radio" 
                   name="priority" 
                   id="high_priority" 
+                  data-testid="high_priority"
                   value={300} checked={selectedOption === 300} 
                   onChange={handlePriorityChange}
                   />
@@ -150,7 +151,7 @@ function CreateTask({setShowModal, task}) {
             </div>
 
             <div className="buttons">
-               <button className="btns_task" id="task_save" onClick={() => task ? updateTask(task.id, category, newTask, setShowModal, selectedUser, selectedCategory) :  createTask(newTask, category, setShowModal, selectedUser, selectedCategory)}>Save</button>
+               <button className="btns_task" id="task_save" data-testid="task_save" onClick={() => task ? updateTask(task.id, category, newTask, setShowModal, selectedUser, selectedCategory) :  createTask(newTask, category, setShowModal, selectedUser, selectedCategory)}>Save</button>
                <button className="btns_task" id="task_cancel" onClick={() => setShowModal(false)}>Cancel</button>
             </div>
          </div>

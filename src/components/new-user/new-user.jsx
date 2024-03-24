@@ -1,14 +1,12 @@
 import  { useState, useEffect } from 'react';
 import './new-user.css';
-import { toast } from 'react-toastify';
 import useUserStore from '../../store/useUserStore';
 import ActiveUsersStore from '../../store/useActiveUsersTableStore';
 
 
 
 function NewUser({setShowNewUser, user}) {
-
-    const token = useUserStore(state => state.user.token);
+    
 
     const [updateUsername, setUpdateUsername] = useState('');
     const [updatePassword, setUpdatePassword] = useState('');
@@ -22,7 +20,7 @@ function NewUser({setShowNewUser, user}) {
     useEffect(() => {
         if (user) {
             setUpdateUsername(user.username);
-            setUpdatePassword(user.password);
+            
             setUpdateEmail(user.email);
             setUpdateFirstName(user.firstName);
             setUpdateLastName(user.lastName);
@@ -58,6 +56,7 @@ function NewUser({setShowNewUser, user}) {
           <div className="descricaoCategoria">
           <h2 id='create_user_title'>{titleModal}</h2>
 
+            
             <input type="text" 
             placeholder="Username" 
             className="register_elemUser" 
@@ -66,13 +65,20 @@ function NewUser({setShowNewUser, user}) {
             onChange={(e) => setUpdateUsername(e.target.value)}
             required />
 
-            <input type="text" 
+            
+            {user ? (
+            null) : 
+            
+            <input 
+            type="text" 
             placeholder="Password" 
             className="register_elemUser" 
             id="register_passwordPO" 
             value={updatePassword}
             onChange={(e) => setUpdatePassword(e.target.value)}
-            required/>
+            required
+            />}
+            
             
             <input type="email" 
             placeholder="Email" 
@@ -82,6 +88,7 @@ function NewUser({setShowNewUser, user}) {
             onChange={(e) => setUpdateEmail(e.target.value)}
             required/>
 
+           
             <input type="text" 
             placeholder="First name" 
             className="register_elemUser" 
@@ -90,6 +97,7 @@ function NewUser({setShowNewUser, user}) {
             onChange={(e) => setUpdateFirstName(e.target.value)}
             required />
 
+            
             <input type="text" 
             placeholder="Last name" 
             className="register_elemUser" 
@@ -99,6 +107,7 @@ function NewUser({setShowNewUser, user}) {
             required/>
 
 
+           
             <input type="text" 
             placeholder="Phone number" 
             className="register_elemUser" 
@@ -107,6 +116,7 @@ function NewUser({setShowNewUser, user}) {
             onChange={(e) => setUpdatePhone(e.target.value)}
             required/>
 
+           
             <input type="url" 
             placeholder="Img URL" 
             className="register_elemUser" 

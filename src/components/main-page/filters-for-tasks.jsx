@@ -34,7 +34,7 @@ function FiltersForTasks() {
 
   return (
     <>
-    <div className="filter">
+    <div className="filter" data-testid="tasks-filters">
                <div className="searchFields">
                <select id="category" onChange={handleCategoryChange}>
                    <option value={selectedCategory} disabled selected>Filter by Category</option>
@@ -52,7 +52,7 @@ function FiltersForTasks() {
                    <option value={selectedUser} disabled selected>Filter by Users</option>
                      {users.map((user) => (
                       
-                      <option value={user.id}>
+                      <option value={user.username}>
                             {user.username}
                       </option>
                     ))}

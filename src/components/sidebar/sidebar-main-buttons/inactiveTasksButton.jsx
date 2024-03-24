@@ -16,7 +16,7 @@ function InactiveTasksButton({logoClicked}) {
     return (
         <div className="inactive-tasks-button">
             <Link to = "/inactive-tasks">
-            <button className="menu_item" id="btn_edit" onClick={() =>getInactiveTasks()} >
+            <button className="menu_item" id="btn_edit" onClick={() =>getInactiveTasks()} data-testid="inactive-tasks-button" >
                 <div className="icon">
                     <FontAwesomeIcon icon={faClipboardList} size="2x" />
                 </div>

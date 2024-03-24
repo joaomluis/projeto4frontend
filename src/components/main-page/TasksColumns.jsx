@@ -22,12 +22,13 @@ function TaskColumns({tasks}) {
 
   return (
     <>   
-     <div id="scrum_main">
+     <div id="scrum_main" data-testid="task-columns">
          
          <section id="scrum_section">
 
             {showModal && <Portal><CreateTask setShowModal={setShowModal}  /></Portal> }
-            <div className="column" 
+            <div className="column"
+            data-testid="column_to-do"
             id="column1"
             onDragOver={(event) => {
                event.preventDefault();
@@ -41,12 +42,13 @@ function TaskColumns({tasks}) {
                {tasks.filter(task => task.state === 'toDo').map(task => <Task key={task.id} task={task} />)}
                </section>
                
-               <button id="btn_task" onClick={showCreateTaskModal}>&nbsp;+ New Task</button>
+               <button id="btn_task" data-testid="btn_task" onClick={showCreateTaskModal}>&nbsp;+ New Task</button>
             </div>
 
 
             <div className="column" 
             id="column2"
+            data-testid="column_doing"
             onDragOver={(event) => {
                event.preventDefault();
            }}
@@ -64,6 +66,7 @@ function TaskColumns({tasks}) {
 
             <div className="column" 
             id="column3"
+            data-testid="column_done"
             onDragOver={(event) => {
                event.preventDefault();
            }}

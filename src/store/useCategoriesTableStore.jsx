@@ -1,12 +1,12 @@
 import { create } from 'zustand';
 import useUserStore from './useUserStore';
-import { toast } from 'react-toastify';
+import { toast, Slide } from 'react-toastify';
 import { useEffect, useState } from 'react';
 
 const useCategoriesTableStore = create((set, get) => {
   const fetchCategories = async () => {
     const categoriesRequest = "http://localhost:8080/project_backend/rest/categories/getAllCategories";
-    const token = useUserStore.getState().user.token;
+    const token = useUserStore.getState().token;
 
     try {
       const response = await fetch(categoriesRequest, {
@@ -20,6 +20,8 @@ const useCategoriesTableStore = create((set, get) => {
 
       if (response.ok) {
         const categories = await response.json();
+
+        
         
         set(() => ({ data: categories }));
         
@@ -48,6 +50,7 @@ const useCategoriesTableStore = create((set, get) => {
       toast.info('Category deleted successfully', {position: "top-center",
       autoClose: 3000,
       hideProgressBar: true,
+      transition: Slide,
       theme: "colored"
       });
       console.log("Category deleted successfully");
@@ -56,6 +59,13 @@ const useCategoriesTableStore = create((set, get) => {
       
     } else {
       const errorMessage = await response.text();
+
+      toast.error(errorMessage, {position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+      transition: Slide,
+      theme: "colored"
+      });
      
     }
   } catch (error) {
@@ -64,13 +74,7 @@ const useCategoriesTableStore = create((set, get) => {
   }};
 
 
-
-
-  fetchCategories();
-
-  const openModal = async (id) => {
-  };
-
+  
 
   return {
     headers: ['Title', 'Description', 'Author', 'Category Edition'],

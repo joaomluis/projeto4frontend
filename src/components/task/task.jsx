@@ -3,8 +3,26 @@ import './task.css';
 import { useState } from 'react';
 import SeeTaskModal from './seeTaskModal';
 import useTasksStore from '../../store/useTasksStore';
+import CreateTask from './createTask';
+import Portal from '../portal/portal';
+import useUserStore from '../../store/useUserStore';
 
-const Task = ({ task, user }) => {
+const Task = ({ task }) => {
+
+  
+
+  const userType = useUserStore((state) => state.userType);
+  const username = useUserStore((state) => state.username);
+ 
+  const { selectedCategory, selectedUser } = useTasksStore();
+  
+
+  const [showUpdateModal, setUpdateShowModal] = useState(false);
+    const showUpdateTaskModal = () => {
+        
+      setUpdateShowModal(true);
+    
+      };
 
 
     let backgroundColorTask;
@@ -17,7 +35,8 @@ const Task = ({ task, user }) => {
         backgroundColorTask = '#ff4d4d';
     }
 
-    const deleteTask = useTasksStore((state) => state.deleteTask);
+    const updateTaskActiveState = useTasksStore((state) => state.updateTaskActiveState);
+    
 
 
     const [showModal, setShowModal] = useState(false);
@@ -31,6 +50,7 @@ const Task = ({ task, user }) => {
 
   return (
     <div id={task.id}
+    data-testid={`task-${task.id}`}
     item={task}
     className="task" 
     draggable="true" 
@@ -44,14 +64,19 @@ const Task = ({ task, user }) => {
       <div className="task_title text-overflow-task">{task.title}</div>
       <div className="task_category text-overflow-task_category">{task.category.title}</div>
        
-        <button className="task_btn" style={{ color: 'black' }}>
-          &#9998; {/* botão para editar a task */}
-        </button>
+      { (userType === 'scrum_master' || userType === 'product_owner' || username === task.author.username ) && (
+      <button className="task_btn" style={{ color: 'black' }} onClick={() => showUpdateTaskModal()}>
+      &#9998; {/* botão para editar a task */}
+      </button>
+    )}
 
-        <button className="delete_btn" style={{ color: 'black' }} onClick={() => deleteTask(task.id)}>
+        { (userType === 'scrum_master' || userType === 'product_owner') && (
+        <button className="delete_btn" style={{ color: 'black' }} onClick={() => updateTaskActiveState(task.id, selectedUser, selectedCategory)}>
         &#128465; {/* botão para apagar a task */}
         </button>
-        {showModal && <SeeTaskModal setShowModal={setShowModal} task={task}/>}
+        )}
+        {showModal && <Portal> <SeeTaskModal setShowModal={setShowModal} task={task}/> </Portal>}  
+        {showUpdateModal && <Portal> <CreateTask setShowModal={setUpdateShowModal} task={task} /> </Portal>}
     </div>
   );
 };

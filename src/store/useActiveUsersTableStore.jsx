@@ -1,13 +1,15 @@
 import { create } from 'zustand';
 import useUserStore from './useUserStore';
-import { toast } from 'react-toastify';
+import { toast, Slide } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import inactiveUsersStore from './useInactiveUsersTableStore';
 
-var token = useUserStore.getState().user.token;
+
 
 const useActiveUsersTableStore = create((set, get) => {
   const getActiveUsers = async () => {
+
+    const token = useUserStore.getState().token;
     const activeUsersRequest = "http://localhost:8080/project_backend/rest/users/activeUsers";
     
    
@@ -37,6 +39,7 @@ const useActiveUsersTableStore = create((set, get) => {
 
   const softDeleteUser = async (id) => {
 
+    const token = useUserStore.getState().token;
     let deleteCategoryRequest = `http://localhost:8080/project_backend/rest/users/deleteUser`;
   try {
     const response = await fetch(deleteCategoryRequest, {
@@ -70,6 +73,8 @@ const useActiveUsersTableStore = create((set, get) => {
 
   const updateProfile = async (username, updatedUserData) => {
 
+    const token = useUserStore.getState().token;
+
     try {
         const response = await fetch("http://localhost:8080/project_backend/rest/users/updateProfilePO", {
             method: 'PUT',
@@ -88,6 +93,7 @@ const useActiveUsersTableStore = create((set, get) => {
             toast.info('User updated successfully', {position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
+            transition: Slide,
             theme: "colored"
             });
 
@@ -104,6 +110,8 @@ const useActiveUsersTableStore = create((set, get) => {
  }
 
  const createUser = async (user) => {
+
+  const token = useUserStore.getState().token;
 
   const url = `http://localhost:8080/project_backend/rest/users/addUserByPO`;
   
@@ -126,6 +134,7 @@ const useActiveUsersTableStore = create((set, get) => {
             toast.info('User created successfully', {position: "top-center",
               autoClose: 3000,
               hideProgressBar: true,
+              transition: Slide,
               theme: "colored"
               });
 
@@ -139,6 +148,13 @@ const useActiveUsersTableStore = create((set, get) => {
             
             console.error("Failed to create user:", errorMessage);
 
+            toast.error(errorMessage, {position: "top-center",
+              autoClose: 4000,
+              hideProgressBar: true,
+              transition: Slide,
+              theme: "colored"
+              })
+
             return Promise.reject(new Error(errorMessage));
 
             }
@@ -148,19 +164,47 @@ const useActiveUsersTableStore = create((set, get) => {
       }
    }
 
+   const getAllUsers = async () => {
 
+    const token = useUserStore.getState().token;
 
-  getActiveUsers();
+    const allUsersRequest = "http://localhost:8080/project_backend/rest/users/all";
   
+    try {
+      const response = await fetch(allUsersRequest, {
+        method: "GET",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+          token: token
+        }
+      });
+
+      if (response.ok) {
+        const allUsers = await response.json();
+        
+        set(() => ({ allUsers: allUsers }));
+
+        
+      }
+    } catch (error) {
+      console.error('Failed to fetch categories', error);
+    }
+   }
+   
+
 
   return {
     headers: ['Username', 'Email', 'Phone', 'Role', 'User Edition'],
     data: [],
+    allUsers: [],
     tableTitle: 'Active Users',
     excludeKeys: ['idCategory'],
     displayOrder: ['username', 'email', 'phoneNumber', 'typeOfUser'],
     setData: (data) => set(state => ({ data })),
+    setAllUsers: (allUsers) => set(state => ({ allUsers })),
     getActiveUsers,
+    getAllUsers,
     softDeleteUser,
     updateProfile,
     createUser

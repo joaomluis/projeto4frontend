@@ -11,11 +11,12 @@ import Sidebar from './components/sidebar/sidebar.jsx';
 import useUserStore from './store/useUserStore.jsx';
 import MainPageScrum from './components/main-page/main-scrum-page.jsx';
 import CreateCategory from './components/createCategory/create-category.jsx';
-import CategoriesTable from './components/categories-page/categories-table.jsx';
+import CategoriesTable from './components/categories-page/categories-table.css';
 import EditProfile from './components/edit-profile/edit-profile.jsx';
 import DynamicTable from './components/table/dynamic-table.jsx';
 import useCategoriesTableStore from './store/useCategoriesTableStore.jsx';
 import useInactiveUsersTableStore from './store/useInactiveUsersTableStore.jsx';
+import useTasksStore from './store/useTasksStore.jsx';
 import ActiveUsersList from './store/useActiveUsersTableStore.jsx';
 import NewUser from './components/new-user/new-user.jsx';
 
@@ -62,8 +63,9 @@ function App() {
             <Route path="/categories" element={<DynamicTable store={useCategoriesTableStore} />} />
             <Route path="/inactive-users" element={<DynamicTable store={useInactiveUsersTableStore}/>} />
             <Route path="/active-users" element={<DynamicTable store={ActiveUsersList}/>} />
+            <Route path="/inactive-tasks" element={<DynamicTable store={useTasksStore}/>} />
             <Route path="/edit-profile" element={<EditProfile/>}/>
-            <Route path="/create-user" element={<NewUser/>}/>
+            
         </Routes>
 
         {isCreateCategoryOpen && <CreateCategory onClose={toggleCreateCategory} />}

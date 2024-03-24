@@ -2,7 +2,8 @@ import userImage from '../user.png';
 import useUserStore from '../../store/useUserStore';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast, Slide } from 'react-toastify';
+
 
 
 
@@ -37,10 +38,21 @@ async function getUserByToken(token) {
 
 function EditProfile() {
 
+    const navigate = useNavigate(); 
+    const isLoggedIn = useUserStore(state => state.isLoggedIn);
+    
+
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/');
+        }
+    }, [isLoggedIn, navigate]);
+
     const userImg = useUserStore((state) => state.imgURL); 
     const firstName = useUserStore((state) => state.firstName);
     const token = useUserStore((state) => state.token);
-    const navigate = useNavigate(); 
+    
 
     //user que o getUserByToken vai buscar
     const [userFetched, setUserFetched] = useState(null);
@@ -99,6 +111,7 @@ function EditProfile() {
                 toast.info("Profile updated successfully", {position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
+                transition: Slide,
                 theme: "colored"
                 });
                 
@@ -107,7 +120,12 @@ function EditProfile() {
               
               } else {
                 const errorData = await response.text();
-                alert(errorData); //mudar para modal
+                toast.error(errorData, {position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                transition: Slide,
+                theme: "colored"
+                });
               }
             
         } catch (error) {

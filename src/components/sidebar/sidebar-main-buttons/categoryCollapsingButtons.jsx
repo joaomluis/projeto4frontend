@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 
 
-function UserCollapsingButton({logoClicked, toggleCreateCategory}) {
+function CategoryCollapsingButton({logoClicked, toggleCreateCategory}) {
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -45,4 +45,4 @@ function UserCollapsingButton({logoClicked, toggleCreateCategory}) {
     );
 }
 
-export default UserCollapsingButton;
+export default CategoryCollapsingButton;

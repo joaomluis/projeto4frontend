@@ -6,7 +6,7 @@ import ActiveUsersStore from './useActiveUsersTableStore';
 const useInactiveUsersTableStore = create((set, get) => {
   const getInactiveUsers = async () => {
     const inactiveUsersRequest = "http://localhost:8080/project_backend/rest/users/inactiveUsers";
-    const token = useUserStore.getState().user.token;
+    const token = useUserStore.getState().token;
 
     try {
       const response = await fetch(inactiveUsersRequest, {
@@ -98,7 +98,6 @@ const useInactiveUsersTableStore = create((set, get) => {
   }};
 
 
-  getInactiveUsers();
   
   
 

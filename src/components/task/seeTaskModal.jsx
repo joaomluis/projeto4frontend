@@ -11,8 +11,8 @@ function SeeTaskModal({setShowModal, task}) {
 
   return (
     <>
-     <div id="overlay-modal-category" onClick={handleClose}></div>
-    <section className="modal" id="modal_dblClick"  onClick={handleClose}>
+     <div id="overlay-modal-category" draggable="false" onClick={handleClose}></div>
+    <section className="modal" id="modal_dblClick" draggable="false" onClick={handleClose}>
          <div>
             <div className="modal_exit" id="modal_cancel">&times;</div>
             <div className="label_modal">Title</div>

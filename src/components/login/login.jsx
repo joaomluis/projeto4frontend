@@ -42,7 +42,7 @@ function Login() {
             navigate('/scrum');
 
          } else if (response.status === 404) {
-            alert("Wrong username or password");
+            console.log("Wrong username or password");
          } else {
             alert("Something went wrong:(");
          }

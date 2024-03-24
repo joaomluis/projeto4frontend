@@ -26,9 +26,6 @@ function LogoutButton({logoClicked, token}) {
     
           if (response.ok) {
             const data = await response.text();
-            console.log(data);
-            
-            
         
             
           } else {

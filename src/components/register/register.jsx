@@ -65,7 +65,7 @@ function Register() {
       }
     } catch (error) {
       console.error('Error:', error);
-      alert("Something went wrong");
+      console.log("Something went wrong");
     }
   };
 

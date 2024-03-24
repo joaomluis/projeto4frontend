@@ -53,7 +53,7 @@ const useCategoriesTableStore = create((set, get) => {
       transition: Slide,
       theme: "colored"
       });
-      console.log("Category deleted successfully");
+      
       fetchCategories();
    
       

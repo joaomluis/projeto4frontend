@@ -347,7 +347,7 @@ getActiveTasks();
     
     
       const deleteTaskPerma = async (id) => {
-        console.log(id);
+        
         const token = useUserStore.getState().user.token;
         let deleteTaskRequest = `http://localhost:8080/project_backend/rest/tasks/${id}/hardDeleteTask`;
       try {

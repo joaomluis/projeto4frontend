@@ -89,7 +89,7 @@ const useActiveUsersTableStore = create((set, get) => {
  
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
+            
             toast.info('User updated successfully', {position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
@@ -105,7 +105,7 @@ const useActiveUsersTableStore = create((set, get) => {
        }
      
     }catch(error){
-       alert("Something went wrong");
+       console.log("Something went wrong");
     }
  }
 

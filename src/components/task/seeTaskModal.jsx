@@ -3,7 +3,6 @@ import './task.css';
 
 function SeeTaskModal({setShowModal, task}) {
 
-    console.log(task);
 
     const handleClose = () => {
         setShowModal(false);
